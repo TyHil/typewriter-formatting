@@ -1,8 +1,10 @@
-html, body {
-  height: 100%;
-  width: 100%;
-  margin: 0;
-  padding: 0;
+/*prefers-reduced-motion*/
+@media screen and (prefers-reduced-motion: reduce), (update: slow) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
 }
 
 /*Dark Mode*/
@@ -114,6 +116,7 @@ body {
   justify-content: center;
   background-color: var(--dark0);
   color: var(--light0);
+  margin: 0;
 }
 
 /*Section*/
