@@ -127,6 +127,8 @@ body {
 
 /*Section*/
 section {
+  flex: 1 0;
+  min-width: 25ch;
   background-color: var(--dark1);
   border-radius: 0 0.5rem 0.5rem 0;
   padding: 1rem;
@@ -136,28 +138,21 @@ section {
   flex-direction: column;
   position: relative;
 }
-@media screen and (max-width: 480px) {
-  body {
-    flex-direction: column;
-  }
-  section {
-    border-radius: 0 0 0.5rem 0.5rem;
-    flex: 1;
-  }
-}
 #header, #header > * {
   position: relative;
 }
 #header {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-between;
   align-items: center;
+  gap: 0.2rem;
 }
-#title {
-  margin: 0 0 0.2rem 0;
+#title, #byLine {
+  margin: 0 auto;
 }
 #byLine {
-  min-height: 1.6rem;
+  height: 1.6rem;
   display: inline-block;
   padding: 0.8rem 1rem 0.6rem 1rem;
   border-radius: 1.5rem;
@@ -168,7 +163,7 @@ section {
   background-image: var(--primary);
   position: absolute;
   top: -1rem;
-  bottom: -0.5remrem;
+  bottom: -0.5rem;
   right: -1rem;
   left: -1rem;
   width: calc(100% + 2rem);
@@ -212,7 +207,8 @@ input[type=number].smallWidth {
 
 /*Main*/
 main {
-  flex: 1;
+  flex: 999 1;
+  max-width: calc(var(--width) + calc(2 * var(--padding)) + 0.25rem + 2px);
   overflow: auto;
   white-space: nowrap;
   background-color: var(--dark0);
@@ -225,7 +221,7 @@ main {
   align-items: start;
 }
 #info {
-  width: min(100%,calc(var(--width) + calc(2 * var(--padding))));
+  width: min(100%, calc(var(--width) + calc(2 * var(--padding))));
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -263,4 +259,18 @@ main {
 .spaceBlock:hover, .spaceBlock.showSpaces {
   background-color: var(--dark1);
   color: var(--light0);
+}
+
+/*Flex*/
+@media screen and (max-width: 480px) {
+  body {
+    flex-direction: column;
+  }
+  section {
+    border-radius: 0 0 0.5rem 0.5rem;
+    flex: 1 0 ;
+  }
+  main {
+    flex: 1 0;
+  }
 }
