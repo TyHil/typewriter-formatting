@@ -210,6 +210,9 @@ fieldset {
   border: 2px solid var(--dark2);
   border-radius: 0.25rem;
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
 }
 fieldset label {
   font-size: 0.9em;
@@ -218,9 +221,12 @@ fieldset legend label {
   white-space: nowrap;
   font-size: 1em;
 }
-fieldset legend {
+fieldset legend, .option {
   display: flex;
   gap: 0.3rem;
+}
+.option:not(.checkbox) {
+  justify-content: space-between;
 }
 input[type=number] {
   width: 5ch;

@@ -67,36 +67,48 @@ Suspendisse id lectus scelerisque, rutrum est non, dignissim libero. In sodales 
       <div id="optionsContainer">
         <fieldset>
           <legend>Page</legend>
-          <label for="charsOnLine" title="Characters on a line on your typewriter, 64 with 1in margin, 0.1in characters, and 8.5in wide paper">Characters on a line</label>
-          <input type="number" id="charsOnLine" name="charsOnLine" value="64" title="Characters on a line on your typewriter, 64 with 1in margin, 0.1in characters, and 8.5in wide paper"><br>
-          <label for="linesOnPage" title="Lines on a page, 54 with 1in margins and 11in tall paper">Lines on a page</label>
-          <input type="number" id="linesOnPage" name="linesOnPage" value="54" title="Lines on a page, 54 with 1in margins and 11in tall paper"><br>
+          <div class="option">
+            <label for="charsOnLine" title="Characters on a line on your typewriter, 64 with 1in margin, 0.1in characters, and 8.5in wide paper">Characters on a line</label>
+            <input type="number" id="charsOnLine" name="charsOnLine" value="64" title="Characters on a line on your typewriter, 64 with 1in margin, 0.1in characters, and 8.5in wide paper">
+          </div>
+          <div class="option">
+            <label for="linesOnPage" title="Lines on a page, 54 with 1in margins and 11in tall paper">Lines on a page</label>
+            <input type="number" id="linesOnPage" name="linesOnPage" value="54" title="Lines on a page, 54 with 1in margins and 11in tall paper">
+          </div>
         </fieldset>
         <fieldset>
           <legend>
             <input type="checkbox" id="center" name="center" title="Center each line" checked>
             <label for="center" title="Center each line">Center Text</label>
           </legend>
-          <label for="centerCharsOnLine" title="Shorten line width when center is true">Characters on a line</label>
-          <input type="number" id="centerCharsOnLine" name="centerCharsOnLine" value="54" title="Shorten line width when center is true"><br>
+          <div class="option">
+            <label for="centerCharsOnLine" title="Shorten line width when center is true">Characters on a line</label>
+            <input type="number" id="centerCharsOnLine" name="centerCharsOnLine" value="54" title="Shorten line width when center is true">
+          </div>
         </fieldset>
         <fieldset>
           <legend>
             <label for="columns" title="Split into columns">Columns</label>
             <input type="number" class="smallWidth" id="columns" name="columns" value="2" title="Split into columns">
           </legend>
-          <label for="columnGap" title="Characters between columns">Column Gap</label>
-          <input type="number" class="smallWidth" id="columnGap" name="columnGap" value="0" title="Characters between columns">
+          <div class="option">
+            <label for="columnGap" title="Characters between columns">Column Gap</label>
+            <input type="number" class="smallWidth" id="columnGap" name="columnGap" value="0" title="Characters between columns">
+          </div>
         </fieldset>
         <fieldset>
           <legend>
             <input type="checkbox" id="wordBreak" name="wordBreak" title="Break words when split over a line">
             <label for="wordBreak" title="Break words when split over a line">Word Break</label>
           </legend>
-          <label for="charsToHyphen" class="disabled" title="Min number of characters that must be on each line for a word to split">Characters to break</label>
-          <input type="number" class="disabled smallWidth" id="charsToHyphen" name="charsToHyphen" value="3" title="Min number of characters that must be on each line for a word to split"><br>
-          <input class="disabled" type="checkbox" id="addHyphen" name="addHyphen" title="Add hyphen" checked>
-          <label for="addHyphen" class="disabled" title="Add hyphen">Add hyphen</label>
+          <div class="option">
+            <label for="charsToHyphen" class="disabled" title="Min number of characters that must be on each line for a word to split">Characters to break</label>
+            <input type="number" class="disabled smallWidth" id="charsToHyphen" name="charsToHyphen" value="3" title="Min number of characters that must be on each line for a word to split">
+          </div>
+          <div class="option checkbox">
+            <input class="disabled" type="checkbox" id="addHyphen" name="addHyphen" title="Add hyphen" checked>
+            <label for="addHyphen" class="disabled" title="Add hyphen">Add hyphen</label>
+          </div>
         </fieldset>
       </div>
     </details>
