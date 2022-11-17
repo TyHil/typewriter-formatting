@@ -47,8 +47,10 @@ linesOnPage.addEventListener("change", function() {
 center.addEventListener("click", function() {
   if (this.checked) {
     centerCharsOnLine.classList.remove("disabled");
+    document.querySelector("label[for='centerCharsOnLine']").classList.remove("disabled");
   } else {
     centerCharsOnLine.classList.add("disabled");
+    document.querySelector("label[for='centerCharsOnLine']").classList.add("disabled");
   }
   columnsUpdate();
   generate();
@@ -68,9 +70,11 @@ columns.addEventListener("change", function() {
   columnsUpdate();
   if (this.value > 1) {
     columnGap.classList.remove("disabled");
+    document.querySelector("label[for='columnGap']").classList.remove("disabled");
     columnGapUpdate();
   } else {
     columnGap.classList.add("disabled");
+    document.querySelector("label[for='columnGap']").classList.add("disabled");
   }
   generate();
 });
@@ -87,10 +91,14 @@ columnGap.addEventListener("change", function() {
 wordBreak.addEventListener("click", function() {
   if (this.checked) {
     charsToHyphen.classList.remove("disabled");
+    document.querySelector("label[for='charsToHyphen']").classList.remove("disabled");
     addHyphen.classList.remove("disabled");
+    document.querySelector("label[for='addHyphen']").classList.remove("disabled");
   } else {
     charsToHyphen.classList.add("disabled");
+    document.querySelector("label[for='charsToHyphen']").classList.add("disabled");
     addHyphen.classList.add("disabled");
+    document.querySelector("label[for='addHyphen']").classList.add("disabled");
   }
   generate();
 });
@@ -194,7 +202,7 @@ function addToMain(text, lineCount) {
 }
 
 function formatLine(text, lineCount) {
-  const columnWidthNotCentered = findColumnWidths(charsOnLine.value);//Math.floor(charsOnLine.value - (parseInt(columnGap.value) * (parseInt(columns.value) - 1))) / parseInt(columns.value); //width of columns without centered spaces removed
+  const columnWidthNotCentered = findColumnWidths(charsOnLine.value); //width of columns without centered spaces removed
   const charsLeft = columnWidthNotCentered[column] - text.slice(0, -1).length;
   if (center.checked) {
     const leftSpaces = Math.ceil(charsLeft / 2); //spaces on left

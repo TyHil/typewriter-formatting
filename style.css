@@ -35,6 +35,15 @@ body {
 ::-webkit-scrollbar-thumb:hover, ::-webkit-scrollbar-corner:hover {
   background-color: rgba(255, 255, 255, 0.28);
 }
+textarea::-webkit-scrollbar-thumb, textarea::-webkit-scrollbar-corner {
+  background-color: rgba(0, 0, 0, 0.24);
+}
+textarea::-webkit-scrollbar-thumb:hover, textarea::-webkit-scrollbar-corner:hover {
+  background-color: rgba(0, 0, 0, 0.28);
+}
+textarea::-webkit-scrollbar-track {
+  background-color: var(--light0);
+}
 textarea, input[type=number] {
   background-color: var(--light0);
   color: var(--dark0);
@@ -76,6 +85,9 @@ input.disabled {
   }
   ::-webkit-scrollbar-thumb:hover, ::-webkit-scrollbar-corner:hover {
     background-color: rgba(0, 0, 0, 0.28);
+  }
+  textarea::-webkit-scrollbar-track {
+    background-color: var(--dark0);
   }
   textarea, input[type=number] {
     background-color: var(--dark0);
@@ -143,13 +155,13 @@ section {
 }
 #header {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
   gap: 0.2rem;
+  margin-bottom: 1.5rem;
 }
 #title, #byLine {
-  margin: 0 auto;
+  margin: 0;
 }
 #byLine {
   height: 1.6rem;
@@ -177,6 +189,38 @@ textarea {
   border: none;
   padding: 0.15rem 0.25rem;
   border-radius: 0.25rem;
+  margin-bottom: 1rem;
+  scrollbar-color: rgba(0, 0, 0, 0.24) var(--dark0);
+}
+label[for=input] {
+  margin-bottom: 0.2rem;
+  font-size: 1.1em;
+}
+summary {
+  cursor: pointer;
+  font-size: 1.1em;
+}
+#optionsContainer {
+  margin: 0.2rem 0 0 0.2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+fieldset {
+  border: 2px solid var(--dark2);
+  border-radius: 0.25rem;
+  flex: 1;
+}
+fieldset label {
+  font-size: 0.9em;
+}
+fieldset legend label {
+  white-space: nowrap;
+  font-size: 1em;
+}
+fieldset legend {
+  display: flex;
+  gap: 0.3rem;
 }
 input[type=number] {
   width: 5ch;
@@ -185,21 +229,14 @@ input[type=number] {
   padding: 0.15rem 0.25rem;
   border-radius: 0.25rem;
 }
-input + label {
+label {
   cursor: pointer;
 }
-input.disabled, input.disabled+label {
+input.disabled, label.disabled {
   cursor: default;
 }
-input.disabled+label {
+label.disabled {
   color: var(--light2);
-}
-input[type=number] + label {
-  float: left;
-  margin-right: 0.4rem;
-}
-.indent {
-  margin-left: 1rem;
 }
 input[type=number].smallWidth {
   width: 4ch;
