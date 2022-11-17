@@ -160,6 +160,9 @@ section {
   gap: 0.2rem;
   margin-bottom: 1.5rem;
 }
+#title {
+  text-align: center;
+}
 #title, #byLine {
   margin: 0;
 }
