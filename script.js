@@ -134,7 +134,7 @@ function createSpaceBlock(width) {
   if (showSpaces.checked) {
     spaceBlock.classList.add("showSpaces");
   }
-  spaceBlock.innerText = width;
+  spaceBlock.innerText = "\u00A0".repeat(Math.floor((width-width.toString().length)/2)) + width.toString() + "\u00A0".repeat(Math.ceil((width-width.toString().length)/2));
   spaceBlock.style.width = width + "ch";
   return spaceBlock;
 }
@@ -162,7 +162,7 @@ function addToMainLine(line, text) {
       lastIsWord = 1;
     }
   }
-  if (spaceCount) {
+  if (spaceCount && column + 1 < columns.value) {
     line.append(createSpaceBlock((spaceCount - onlySpace).toString()));
     spaceCount = 0;
   }
@@ -285,9 +285,13 @@ function generate() {
     const doubleSpaceBlocks = document.querySelectorAll(".spaceBlock+.spaceBlock");
     for (let i = 0; i < doubleSpaceBlocks.length; i++) {
       const prev = doubleSpaceBlocks[i].previousSibling;
-      doubleSpaceBlocks[i].style.width = (parseInt(doubleSpaceBlocks[i].innerText) + parseInt(prev.innerText)).toString() + "ch";
-      doubleSpaceBlocks[i].innerText = parseInt(doubleSpaceBlocks[i].innerText) + parseInt(prev.innerText);
+      const width = parseInt(doubleSpaceBlocks[i].innerText) + parseInt(prev.innerText)
+      doubleSpaceBlocks[i].style.width = width.toString() + "ch";
+      doubleSpaceBlocks[i].innerText = "\u00A0".repeat(Math.floor((width-width.toString().length)/2)) + width.toString() + "\u00A0".repeat(Math.ceil((width-width.toString().length)/2));
       prev.remove();
+    }
+    while(document.querySelector("span.spaceBlock:last-of-type")) {
+      document.querySelector("span.spaceBlock:last-of-type").remove();
     }
     lineCount += 1;
   } else {
