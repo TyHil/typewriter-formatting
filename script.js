@@ -247,13 +247,7 @@ function generate() {
     columnWidth = findColumnWidths(center.checked ? centerCharsOnLine.value : charsOnLine.value);
     let writeLine = "";
     for (const line of input.value.split(/\r?\n|\r/)) {
-      if (line.length === 0) {
-        formatLine(writeLine, lineCount);
-        lineCount += 1;
-        writeLine = "";
-        formatLine("", lineCount);
-        lineCount += 1;
-      } else {
+      if (line.length) {
         for (const word of line.split(" ")) {
           const values = addWord(lineCount, writeLine, word.replace(/\r?\n|\r/g, ""));
           lineCount = values[0];
@@ -265,6 +259,9 @@ function generate() {
           }
         }
       }
+      formatLine(writeLine, lineCount);
+      lineCount += 1;
+      writeLine = "";
     }
     formatLine(writeLine, lineCount); //add last line
     const doubleSpaceBlocks = document.querySelectorAll(".spaceBlock+.spaceBlock");
