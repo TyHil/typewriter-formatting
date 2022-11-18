@@ -42,8 +42,12 @@
       <h2 id="title">Typewriter Formatting</h2>
       <a id="byLine" href="/">Tyler Gordon Hill</a>
     </div>
-    <label for="input" title="Text input">Text input</label>
-    <textarea id="input" name="input" name="Text input">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget est sit amet velit cursus tincidunt sit amet vitae neque. Etiam venenatis risus molestie odio bibendum, ac porta metus convallis. Quisque et augue enim. Quisque luctus eros vitae ipsum vulputate convallis. Vestibulum nec laoreet nulla. In rhoncus porta cursus. Quisque in viverra nisl. Nam eu mattis ante, in faucibus neque. Nulla semper diam est, ut rutrum lectus aliquam quis.
+    <div id="resetContainer">
+      <label for="input" title="Text input">Text input</label>
+      <button class="reset">Reset</button>
+    </div>
+    <form id="inputContainer">
+      <textarea id="input" name="input" name="Text input">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget est sit amet velit cursus tincidunt sit amet vitae neque. Etiam venenatis risus molestie odio bibendum, ac porta metus convallis. Quisque et augue enim. Quisque luctus eros vitae ipsum vulputate convallis. Vestibulum nec laoreet nulla. In rhoncus porta cursus. Quisque in viverra nisl. Nam eu mattis ante, in faucibus neque. Nulla semper diam est, ut rutrum lectus aliquam quis.
 
 Ut vehicula faucibus nulla non sodales. Aenean viverra auctor placerat. Nam a erat nulla. Aliquam porta, dolor sed viverra faucibus, lacus urna sodales sapien, ut mollis nulla enim eu ex. Mauris maximus enim at interdum ullamcorper. Fusce sagittis congue magna vel consequat. Proin urna ligula, sodales at bibendum id, sollicitudin vel lorem. Suspendisse consectetur vitae enim eu imperdiet. Quisque fringilla, nisi non fringilla tempus, felis nunc gravida erat, nec ornare orci massa id sem. Nunc interdum hendrerit elit nec imperdiet. Sed mi nulla, pharetra id nulla id, bibendum convallis nulla. Curabitur scelerisque nibh at eros imperdiet volutpat. Mauris ut est in odio ultricies auctor. Nam vitae nisl arcu.
 
@@ -62,9 +66,10 @@ In hac habitasse platea dictumst. Vestibulum enim turpis, ornare ut imperdiet ut
 Vivamus porta eros at augue posuere ultrices. Phasellus quis varius elit, a gravida nunc. Donec posuere lacus id arcu lobortis, sed pretium quam vehicula. Ut sagittis turpis a arcu interdum viverra. Duis accumsan egestas augue eget facilisis. Sed gravida massa nec erat porta, sit amet luctus eros vulputate. Pellentesque tincidunt ultricies mi, lobortis sodales diam blandit sit amet. Aenean euismod, magna eget tincidunt varius, enim erat ultricies ipsum, vel aliquet dui sem quis arcu. Nulla vitae leo sed lacus viverra maximus. Etiam at ipsum sit amet orci blandit accumsan eu bibendum velit. Aenean ac ex fermentum, mattis tellus ac, ultrices dui. Suspendisse dictum gravida enim, quis fringilla odio semper vel. In egestas blandit eleifend.
 
 Suspendisse id lectus scelerisque, rutrum est non, dignissim libero. In sodales ac sapien sit amet consequat. Cras a diam vel sapien fringilla feugiat ac sit amet ante. Nunc quis finibus diam, nec gravida augue. Phasellus nec massa diam. Nunc fermentum pellentesque gravida. Mauris finibus accumsan pulvinar.</textarea>
+    </form>
     <details open>
-      <summary>Options</summary>
-      <div id="optionsContainer">
+      <summary>Options<button class="reset">Reset</button></summary>
+      <form id="optionsContainer">
         <fieldset>
           <legend>Page</legend>
           <div class="option">
@@ -110,7 +115,7 @@ Suspendisse id lectus scelerisque, rutrum est non, dignissim libero. In sodales 
             <label for="addHyphen" class="disabled" title="Add hyphen">Add hyphen</label>
           </div>
         </fieldset>
-      </div>
+      </form>
     </details>
   </section>
   <main>

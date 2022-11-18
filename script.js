@@ -1,3 +1,9 @@
+/*
+reset textarea button
+save options
+reset options button
+*/
+
 /*Constants*/
 
 const main = document.getElementsByTagName("main")[0];
@@ -11,15 +17,37 @@ const columnGap = document.getElementById("columnGap");
 const wordBreak = document.getElementById("wordBreak");
 const charsToHyphen = document.getElementById("charsToHyphen");
 const addHyphen = document.getElementById("addHyphen");
+const resetInput = document.getElementsByClassName("reset")[0];
+const resetOptions = document.getElementsByClassName("reset")[1];
+const names = ["input", "charsOnLine", "linesOnPage", "center", "centerCharsOnLine", "columns", "columnGap", "wordBreak", "charsToHyphen", "addHyphen"];
+
+for (const element of names) {
+  const old = localStorage.getItem(element);
+  console.log(element, old);
+  if (old !== null && old != "undefined") {
+    const domElement = document.getElementById(element);
+    if (domElement.type === "checkbox") {
+      console.log(old, element, domElement);
+      domElement.checked = old === "true";
+    } else {
+      domElement.value = old;
+    }
+  }
+}
+centerDisabled();
+columnsDisabled();
+wordBreakDisabled();
 
 /* Listeners */
 
-const oldInput = localStorage.getItem("input");
-if (oldInput !== null) {
-  input.value = localStorage.getItem("input");
-}
 input.addEventListener("change", function() {
   localStorage.setItem("input", this.value);
+  generate();
+});
+
+resetInput.addEventListener("click", function() {
+  document.getElementById("inputContainer").reset();
+  localStorage.setItem("input", input.value);
   generate();
 });
 
@@ -34,40 +62,48 @@ charsOnLine.addEventListener("change", function() {
   this.value = Math.max(1, this.value);
   columnsUpdate();
   paddingCalc();
+  localStorage.setItem("charsOnLine", this.value);
   generate();
 });
 
 linesOnPage.addEventListener("change", function() {
   this.value = Math.max(1, this.value);
   paddingCalc();
+  localStorage.setItem("linesOnPage", this.value);
   generate();
 });
 
-center.addEventListener("click", function() {
-  if (this.checked) {
+function centerDisabled() {
+  if (center.checked) {
     centerCharsOnLine.classList.remove("disabled");
     document.querySelector("label[for='centerCharsOnLine']").classList.remove("disabled");
   } else {
     centerCharsOnLine.classList.add("disabled");
     document.querySelector("label[for='centerCharsOnLine']").classList.add("disabled");
   }
+}
+center.addEventListener("click", function() {
+  centerDisabled();
   columnsUpdate();
+  localStorage.setItem("center", this.checked);
   generate();
 });
 
 centerCharsOnLine.addEventListener("change", function() {
   this.value = Math.max(1, Math.min(this.value, charsOnLine.value));
   columnsUpdate();
+  localStorage.setItem("centerCharsOnLine", this.value);
   generate();
 });
 
 function columnsUpdate() {
   columns.value = Math.max(1, Math.min(columns.value, center.checked ? centerCharsOnLine.value : charsOnLine.value));
+  localStorage.setItem("columns", columns.value);
+  columnsDisabled();
   columnGapUpdate();
 }
-columns.addEventListener("change", function() {
-  columnsUpdate();
-  if (this.value > 1) {
+function columnsDisabled() {
+  if (columns.value > 1) {
     columnGap.classList.remove("disabled");
     document.querySelector("label[for='columnGap']").classList.remove("disabled");
     columnGapUpdate();
@@ -75,20 +111,24 @@ columns.addEventListener("change", function() {
     columnGap.classList.add("disabled");
     document.querySelector("label[for='columnGap']").classList.add("disabled");
   }
+}
+columns.addEventListener("change", function() {
+  columnsUpdate();
   generate();
 });
 
 function columnGapUpdate() {
   const max = Math.floor(((center.checked ? centerCharsOnLine.value : charsOnLine.value) - columns.value) / Math.max(1, columns.value - 1));
   columnGap.value = Math.max(0, Math.min(columnGap.value, max));
+  localStorage.setItem("columnGap", columnGap.value);
 }
 columnGap.addEventListener("change", function() {
   columnGapUpdate();
   generate();
 });
 
-wordBreak.addEventListener("click", function() {
-  if (this.checked) {
+function wordBreakDisabled() {
+  if (wordBreak.checked) {
     charsToHyphen.classList.remove("disabled");
     document.querySelector("label[for='charsToHyphen']").classList.remove("disabled");
     addHyphen.classList.remove("disabled");
@@ -99,15 +139,37 @@ wordBreak.addEventListener("click", function() {
     addHyphen.classList.add("disabled");
     document.querySelector("label[for='addHyphen']").classList.add("disabled");
   }
+}
+wordBreak.addEventListener("click", function() {
+  wordBreakDisabled();
+  localStorage.setItem("wordBreak", this.checked);
   generate();
 });
 
 charsToHyphen.addEventListener("change", function() {
   this.value = Math.max(1, this.value);
+  localStorage.setItem("charsToHyphen", this.value);
   generate();
 });
 
 addHyphen.addEventListener("click", function() {
+  localStorage.setItem("addHyphen", this.checked);
+  generate();
+});
+
+resetOptions.addEventListener("click", function() {
+  document.getElementById("optionsContainer").reset();
+  for (const element of names) {
+    const domElement = document.getElementById(element);
+    if (domElement.type === "checkbox") {
+      localStorage.setItem(element, domElement.checked);
+    } else {
+      localStorage.setItem(element, domElement.value);
+    }
+  }
+  centerDisabled();
+  columnsDisabled();
+  wordBreakDisabled();
   generate();
 });
 
