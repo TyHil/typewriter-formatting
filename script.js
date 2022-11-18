@@ -11,7 +11,6 @@ const columnGap = document.getElementById("columnGap");
 const wordBreak = document.getElementById("wordBreak");
 const charsToHyphen = document.getElementById("charsToHyphen");
 const addHyphen = document.getElementById("addHyphen");
-const showSpaces = document.getElementById("showSpaces");
 
 /* Listeners */
 
@@ -112,17 +111,6 @@ addHyphen.addEventListener("click", function() {
   generate();
 });
 
-showSpaces.addEventListener("click", function() {
-  const spaceBlocks = document.getElementsByClassName("spaceBlock");
-  for (let i = 0; i < spaceBlocks.length; i++) {
-    if (this.checked) {
-      spaceBlocks[i].classList.add("showSpaces");
-    } else {
-      spaceBlocks[i].classList.remove("showSpaces");
-    }
-  }
-});
-
 /*Generator*/
 
 let column; //current column
@@ -131,9 +119,6 @@ let columnWidth;
 function createSpaceBlock(width) {
   const spaceBlock = document.createElement("span");
   spaceBlock.classList.add("spaceBlock");
-  if (showSpaces.checked) {
-    spaceBlock.classList.add("showSpaces");
-  }
   spaceBlock.innerText = "\u00A0".repeat(Math.floor((width-width.toString().length)/2)) + width.toString() + "\u00A0".repeat(Math.ceil((width-width.toString().length)/2));
   spaceBlock.style.width = width + "ch";
   return spaceBlock;
@@ -181,12 +166,12 @@ function addToMain(text, lineCount) {
   }
   const linePlacement = Math.floor(lineCount / (parseInt(columns.value) * parseInt(linesOnPage.value))) * parseInt(linesOnPage.value) + lineCount % parseInt(linesOnPage.value);
   let line = document.getElementById("line" + linePlacement.toString());
-  if (typeof(line) != 'undefined' && line != null) {
+  if (line !== null) {
     addToMainLine(line, text);
   } else {
     const pageCount = Math.floor(lineCount / (parseInt(columns.value) * parseInt(linesOnPage.value)));
     let page = document.getElementById("page" + pageCount.toString());
-    if (typeof(page) == 'undefined' || page == null) {
+    if (page === null) {
       page = createPage(pageCount);
       main.append(page);
     } else {
@@ -211,7 +196,7 @@ function formatLine(text, lineCount) {
   } else {
     addToMain(text.slice(0, -1) + " ".repeat(charsLeft), lineCount);
   }
-  if (lineCount % linesOnPage.value == (linesOnPage.value - 1)) { //between page dash
+  if (lineCount % linesOnPage.value === (linesOnPage.value - 1)) { //between page dash
     column = (column + 1) % columns.value;
   }
 }
@@ -299,8 +284,14 @@ function generate() {
   }
   lineCount = Math.floor(lineCount / (parseInt(columns.value) * parseInt(linesOnPage.value))) * parseInt(linesOnPage.value) + Math.min(lineCount % (parseInt(columns.value) * parseInt(linesOnPage.value)), parseInt(linesOnPage.value)); //basically divide lineCount by columns
   document.getElementById("lineCount").innerText = lineCount.toString() + " line" + ((lineCount !== 1) ? "s" : "");
-  const pageCount = Math.floor(lineCount / parseInt(linesOnPage.value));
-  const extraLines = lineCount - pageCount * parseInt(linesOnPage.value);
-  document.getElementById("pageCount").innerText = pageCount ? (pageCount.toString() + " pages and " + extraLines.toString() + " line" + ((extraLines !== 1) ? "s" : "")) : "";
+  const numPages = Math.floor(lineCount / parseInt(linesOnPage.value));
+  const extraLines = lineCount - numPages * parseInt(linesOnPage.value);
+  const pageCount = document.getElementById("pageCount");
+  if (numPages) {
+  pageCount.innerText = numPages.toString() + " pages and " + extraLines.toString() + " line" + ((extraLines !== 1) ? "s" : "");
+    pageCount.style.display = "inline";
+  } else {
+    pageCount.style.display = "none";
+  }
 }
 generate();
