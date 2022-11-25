@@ -1,9 +1,3 @@
-/*
-reset textarea button
-save options
-reset options button
-*/
-
 /*Constants*/
 
 const main = document.getElementsByTagName("main")[0];
@@ -23,11 +17,9 @@ const names = ["input", "charsOnLine", "linesOnPage", "center", "centerCharsOnLi
 
 for (const element of names) {
   const old = localStorage.getItem(element);
-  console.log(element, old);
   if (old !== null && old != "undefined") {
     const domElement = document.getElementById(element);
     if (domElement.type === "checkbox") {
-      console.log(old, element, domElement);
       domElement.checked = old === "true";
     } else {
       domElement.value = old;
@@ -175,8 +167,35 @@ resetOptions.addEventListener("click", function() {
 
 /*Generator*/
 
-let column; //current column
-let columnWidth;
+class CurrentInfo {
+  constructor() {
+    this.line = 0;
+    this.column = 0;
+    this.columnWidths = this.findColumnWidths(center.checked ? centerCharsOnLine.value : charsOnLine.value);
+    this.columnWidthsNotCentered = this.findColumnWidths(charsOnLine.value);
+  }
+  findColumnWidths(characters) {
+    const spaceToFill = (characters - (columnGap.value * (columns.value - 1)));
+    const minWidth = Math.floor(spaceToFill / parseInt(columns.value));
+    let columnWidths = Array(parseInt(columns.value)).fill(minWidth);
+    for (let i = 0; i < spaceToFill - parseInt(columns.value) * minWidth; i++) {
+      columnWidths[i % columnWidths.length]++;
+    }
+    return columnWidths;
+  }
+  get columnWidth() {
+    return this.columnWidths[this.column];
+  }
+  get columnWidthNotCentered() {
+    return this.columnWidthsNotCentered[this.column];
+  }
+  increment() {
+    if (this.line % linesOnPage.value === (linesOnPage.value - 1)) { //between page dash
+      this.column = (this.column + 1) % columns.value;
+    }
+    this.line++;
+  }
+}
 
 function createSpaceBlock(width) {
   const spaceBlock = document.createElement("span");
@@ -186,7 +205,7 @@ function createSpaceBlock(width) {
   return spaceBlock;
 }
 
-function addToMainLine(line, text) {
+function addStringToLine(line, text, currentInfo) {
   let spaceCount = 0;
   let lastIsWord = 0;
   let spaceFirst = 1;
@@ -209,29 +228,38 @@ function addToMainLine(line, text) {
       lastIsWord = 1;
     }
   }
-  if (spaceCount && column + 1 < columns.value) {
+  if (spaceCount && currentInfo.column + 1 < columns.value) {
     line.append(createSpaceBlock((spaceCount - onlySpace).toString()));
     spaceCount = 0;
   }
 }
 
-function createPage(pageCount) {
+function createPage(pageNum) {
   const page = document.createElement("div");
   page.classList.add("page");
-  page.id = "page" + pageCount.toString();
+  page.id = "page" + pageNum.toString();
   return page;
 }
 
-function addToMain(text, lineCount) {
-  if (columns.value != 1 && column != columns.value - 1 && parseInt(columnGap.value)) {
+function addStringToMain(text, currentInfo) {
+  const charsLeft = currentInfo.columnWidthNotCentered - text.slice(0, -1).length;
+  if (center.checked) {
+    const leftSpaces = Math.ceil(charsLeft / 2); //spaces on left
+    const rightSpaces = Math.floor(charsLeft / 2); //spaces on right
+    text = " ".repeat(leftSpaces) + text.slice(0, -1) + " ".repeat(rightSpaces); //add spaces and number of spaces
+  } else {
+    text = text.slice(0, -1) + " ".repeat(charsLeft);
+  }
+  currentInfo.increment();
+  if (columns.value != 1 && currentInfo.column != columns.value - 1 && parseInt(columnGap.value)) {
     text += " ".repeat(columnGap.value);
   }
-  const linePlacement = Math.floor(lineCount / (parseInt(columns.value) * parseInt(linesOnPage.value))) * parseInt(linesOnPage.value) + lineCount % parseInt(linesOnPage.value);
+  const linePlacement = Math.floor(currentInfo.line / (parseInt(columns.value) * parseInt(linesOnPage.value))) * parseInt(linesOnPage.value) + currentInfo.line % parseInt(linesOnPage.value);
   let line = document.getElementById("line" + linePlacement.toString());
   if (line !== null) {
-    addToMainLine(line, text);
+    addStringToLine(line, text, currentInfo);
   } else {
-    const pageCount = Math.floor(lineCount / (parseInt(columns.value) * parseInt(linesOnPage.value)));
+    const pageCount = Math.floor(currentInfo.line / (parseInt(columns.value) * parseInt(linesOnPage.value)));
     let page = document.getElementById("page" + pageCount.toString());
     if (page === null) {
       page = createPage(pageCount);
@@ -244,88 +272,64 @@ function addToMain(text, lineCount) {
     line.classList.add("line");
     line.id = "line" + linePlacement.toString();
     page.append(line);
-    addToMainLine(line, text);
+    addStringToLine(line, text, currentInfo);
   }
 }
 
-function formatLine(text, lineCount) {
-  const columnWidthNotCentered = findColumnWidths(charsOnLine.value); //width of columns without centered spaces removed
-  const charsLeft = columnWidthNotCentered[column] - text.slice(0, -1).length;
-  if (center.checked) {
-    const leftSpaces = Math.ceil(charsLeft / 2); //spaces on left
-    const rightSpaces = Math.floor(charsLeft / 2); //spaces on right
-    addToMain(" ".repeat(leftSpaces) + text.slice(0, -1) + " ".repeat(rightSpaces), lineCount); //add spaces and number of spaces
-  } else {
-    addToMain(text.slice(0, -1) + " ".repeat(charsLeft), lineCount);
-  }
-  if (lineCount % linesOnPage.value === (linesOnPage.value - 1)) { //between page dash
-    column = (column + 1) % columns.value;
-  }
-}
-
-function addWord(lineCount, writeLine, word) {
-  if (writeLine.length + word.length > columnWidth[column]) { //next word over line
-    let charsLeft = columnWidth[column] - writeLine.length; //chars left in line
+function addWordToString(text, word, currentInfo) {
+  if (text.length + word.length > currentInfo.columnWidth) { //next word over line
+    let charsLeft = currentInfo.columnWidth - text.length; //chars left in line
     if (addHyphen.checked) { //space for hyphen
       charsLeft -= 1;
     }
     if (wordBreak.checked && charsLeft > 0 && charsLeft >= charsToHyphen.value && word.length - charsLeft >= charsToHyphen.value) { //check enough chars on each line
-      formatLine(writeLine + word.slice(0, charsLeft) + (addHyphen.checked ? "- " : " "), lineCount); //add split and hyphen if necessary
-      return addWord(lineCount + 1, "", word.slice(charsLeft)); //add other half of word to a new line
-    } else if (word.length > columnWidth[column]) { //force word break
-      formatLine(writeLine, lineCount);
-      charsLeft = columnWidth[column];
+      addStringToMain(text + word.slice(0, charsLeft) + (addHyphen.checked ? "- " : " "), currentInfo); //add split and hyphen if necessary
+      currentInfo.line++;
+      return addWordToString("", word.slice(charsLeft), currentInfo); //add other half of word to a new line
+    } else if (word.length > currentInfo.columnWidth) { //force word break
+      addStringToMain(text, currentInfo);
+      charsLeft = currentInfo.columnWidth;
       if (addHyphen.checked) { //space for hyphen
         charsLeft -= 1;
       }
-      return addWord(lineCount + 1, word.slice(0, charsLeft) + (addHyphen.checked ? "- " : " "), word.slice(charsLeft));
+      return addWordToString(word.slice(0, charsLeft) + (addHyphen.checked ? "- " : " "), word.slice(charsLeft), currentInfo);
     } else {
-      formatLine(writeLine, lineCount);
-      return addWord(lineCount + 1, "", word);
+      addStringToMain(text, currentInfo);
+      return addWordToString("", word, currentInfo);
     }
   } else { //add word to line normally
-    return [lineCount, writeLine + word + " "];
+    return text + word + " ";
   }
-}
-
-function findColumnWidths(characters) {
-  const spaceToFill = (characters - (columnGap.value * (columns.value - 1)));
-  const minWidth = Math.floor(spaceToFill / parseInt(columns.value));
-  let columnWidth = Array(parseInt(columns.value)).fill(minWidth);
-  for (let i = 0; i < spaceToFill - parseInt(columns.value) * minWidth; i++) {
-    columnWidth[i % columnWidth.length]++;
-  }
-  return columnWidth;
 }
 
 function generate() {
+  //remove past pages
   const pages = document.getElementsByClassName("page");
   while (pages.length) {
     pages[0].remove();
   }
-  let lineCount = 0;
-  if (input.value !== "") {
-    column = 0;
-    columnWidth = findColumnWidths(center.checked ? centerCharsOnLine.value : charsOnLine.value);
+  
+  let currentInfo = new CurrentInfo();
+  if (input.value === "") { //add blank page
+    main.append(createPage(1));
+  } else {
     let writeLine = "";
     for (const line of input.value.split(/\r?\n|\r/)) {
       if (line.length) {
         for (const word of line.split(" ")) {
-          const values = addWord(lineCount, writeLine, word.replace(/\r?\n|\r/g, ""));
-          lineCount = values[0];
-          writeLine = values[1];
+          writeLine = addWordToString(writeLine, word.replace(/\r?\n|\r/g, ""), currentInfo);
           if (/\r|\n/.exec(word)) { //end line
-            formatLine(writeLine, lineCount);
-            lineCount += 1;
+            addStringToMain(writeLine, currentInfo);
             writeLine = "";
           }
         }
       }
-      formatLine(writeLine, lineCount);
-      lineCount += 1;
+      addStringToMain(writeLine, currentInfo);
       writeLine = "";
     }
-    formatLine(writeLine, lineCount); //add last line
+    addStringToMain(writeLine, currentInfo); //add last line
+
+    //remove spaceBlocks in a row
     const doubleSpaceBlocks = document.querySelectorAll(".spaceBlock+.spaceBlock");
     for (let i = 0; i < doubleSpaceBlocks.length; i++) {
       const prev = doubleSpaceBlocks[i].previousSibling;
@@ -334,23 +338,22 @@ function generate() {
       doubleSpaceBlocks[i].innerText = "\u00A0".repeat(Math.floor((width-width.toString().length)/2)) + width.toString() + "\u00A0".repeat(Math.ceil((width-width.toString().length)/2));
       prev.remove();
     }
+
+    //remove spaceBlocks at the ends of lines
     while(document.querySelector("span.spaceBlock:last-of-type")) {
       document.querySelector("span.spaceBlock:last-of-type").remove();
     }
-    lineCount += 1;
-  } else {
-    main.append(createPage(1));
+    
+    currentInfo.increment;
   }
-  lineCount = Math.floor(lineCount / (parseInt(columns.value) * parseInt(linesOnPage.value))) * parseInt(linesOnPage.value) + Math.min(lineCount % (parseInt(columns.value) * parseInt(linesOnPage.value)), parseInt(linesOnPage.value)); //basically divide lineCount by columns
-  document.getElementById("lineCount").innerText = lineCount.toString() + " line" + ((lineCount !== 1) ? "s" : "");
-  const numPages = Math.floor(lineCount / parseInt(linesOnPage.value));
-  const extraLines = lineCount - numPages * parseInt(linesOnPage.value);
-  const pageCount = document.getElementById("pageCount");
-  if (numPages) {
-  pageCount.innerText = numPages.toString() + " pages and " + extraLines.toString() + " line" + ((extraLines !== 1) ? "s" : "");
-    pageCount.style.display = "inline";
-  } else {
-    pageCount.style.display = "none";
-  }
+
+  //lines
+  currentInfo.line = Math.floor(currentInfo.line / (parseInt(columns.value) * parseInt(linesOnPage.value))) * parseInt(linesOnPage.value) + Math.min(currentInfo.line % (parseInt(columns.value) * parseInt(linesOnPage.value)), parseInt(linesOnPage.value)); //basically divide currentInfo.line by columns
+  document.getElementById("lineCount").innerText = currentInfo.line.toString() + " line" + ((currentInfo.line !== 1) ? "s" : "");
+
+  //pages
+  const numPages = Math.ceil(currentInfo.line / parseInt(linesOnPage.value));
+  document.getElementById("pageCount").innerText = numPages.toString() + " page" + ((numPages !== 1) ? "s" : "");
 }
+
 generate();
