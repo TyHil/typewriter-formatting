@@ -328,7 +328,6 @@ function generate() {
       addStringToMain(writeLine, currentInfo);
       writeLine = "";
     }
-    addStringToMain(writeLine, currentInfo); //add last line
 
     //remove spaceBlocks in a row
     const doubleSpaceBlocks = document.querySelectorAll(".spaceBlock+.spaceBlock");
@@ -344,8 +343,6 @@ function generate() {
     while(document.querySelector("span.spaceBlock:last-of-type")) {
       document.querySelector("span.spaceBlock:last-of-type").remove();
     }
-    
-    currentInfo.increment;
   }
 
   //lines
