@@ -251,7 +251,6 @@ function addStringToMain(text, currentInfo) {
   } else {
     text = text.slice(0, -1) + " ".repeat(charsLeft);
   }
-  currentInfo.increment();
   if (columns.value != 1 && currentInfo.column != columns.value - 1 && parseInt(columnGap.value)) {
     text += " ".repeat(columnGap.value);
   }
@@ -275,6 +274,7 @@ function addStringToMain(text, currentInfo) {
     page.append(line);
     addStringToLine(line, text, currentInfo);
   }
+  currentInfo.increment();
 }
 
 function addWordToString(text, word, currentInfo) {
