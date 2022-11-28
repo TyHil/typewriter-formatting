@@ -279,7 +279,7 @@ input[type=number].smallWidth {
 /*Main*/
 main {
   flex: 999 1;
-  max-width: calc(var(--width) + calc(2 * var(--padding)) + 0.25rem + 2px);
+  max-width: calc(var(--width) + calc(2 * var(--paddingLR)) + calc(2 * 0.25rem) + calc(2 * 2px));
   overflow: auto;
   white-space: nowrap;
   background-color: var(--dark0);
@@ -292,7 +292,7 @@ main {
   align-items: start;
 }
 #info {
-  width: min(100%, calc(var(--width) + calc(2 * var(--padding))));
+  width: min(100%, calc(var(--width) + calc(2 * var(--paddingLR))));
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -313,7 +313,7 @@ main {
   width: var(--width);
   height: var(--height);
   min-height: var(--height);
-  padding: var(--padding);
+  padding: var(--paddingTB) var(--paddingLR);
   border: 2px solid var(--dark2);
   border-radius: 0.25rem;
   margin: auto;

@@ -44,7 +44,8 @@ resetInput.addEventListener("click", function() {
 });
 
 function paddingCalc() {
-  document.documentElement.style.setProperty("--padding", Math.max((66-linesOnPage.value)/2,0).toString() + "em " + Math.max((85-charsOnLine.value)/2,0).toString() + "ch");
+  document.documentElement.style.setProperty("--paddingTB", Math.max((66-linesOnPage.value)/2,0).toString() + "em");
+  document.documentElement.style.setProperty("--paddingLR", Math.max((85-charsOnLine.value)/2,0).toString() + "ch");
   document.documentElement.style.setProperty("--width", charsOnLine.value + "ch");
   document.documentElement.style.setProperty("--height", linesOnPage.value + "em");
 }
