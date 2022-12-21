@@ -29,6 +29,7 @@ for (const element of names) {
 centerDisabled();
 columnsDisabled();
 wordBreakDisabled();
+paddingCalc();
 
 /* Listeners */
 
@@ -172,6 +173,7 @@ resetOptions.addEventListener('click', function() {
   centerDisabled();
   columnsDisabled();
   wordBreakDisabled();
+  paddingCalc();
   generate();
 });
 
