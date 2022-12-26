@@ -5,7 +5,10 @@ html, body {
   padding: 0;
 }
 
-/*prefers-reduced-motion*/
+
+
+/* prefers-reduced-motion */
+
 @media screen and (prefers-reduced-motion: reduce), (update: slow) {
   * {
     animation-duration: 0.001ms !important;
@@ -14,7 +17,10 @@ html, body {
   }
 }
 
-/*Dark Mode*/
+
+
+/* Dark Mode */
+
 :root { /*Gradient color average: #128A74 10 midpoints first choice*/
   --light0: #E9F4F2; /*#fff*/
   --light1: #CCD7D5; /*#dfdfdf*/
@@ -64,7 +70,10 @@ input.disabled {
   background-color: rgba(255, 255, 255, 0.1);
 }
 
-/*Light Mode*/
+
+
+/* Light Mode */
+
 @media (prefers-color-scheme: light) {
   :root {
     --light0: #020D0B; /*#000*/
@@ -110,7 +119,10 @@ input.disabled {
   }
 }
 
-/*Scrollbar*/
+
+
+/* Scrollbar */
+
 body {
   scrollbar-width: thin;
 }
@@ -129,7 +141,10 @@ body {
   border-radius: 0.25rem;
 }
 
-/*Body*/
+
+
+/* Body */
+
 body {
   display: flex;
   justify-content: center;
@@ -137,7 +152,10 @@ body {
   color: var(--light0);
 }
 
-/*Section*/
+
+
+/* Section */
+
 section {
   flex: 1 0;
   min-width: 25ch;
@@ -276,7 +294,10 @@ input[type=number].smallWidth {
   width: 4ch;
 }
 
-/*Main*/
+
+
+/* Main */
+
 main {
   flex: 999 1;
   max-width: calc(var(--width) + calc(2 * var(--paddingLR)) + calc(2 * 0.25rem) + calc(2 * 2px));
@@ -332,7 +353,10 @@ main {
   color: var(--light0);
 }
 
-/*Flex*/
+
+
+/* Flex */
+
 @media screen and (max-width: 480px) {
   body {
     flex-direction: column;
