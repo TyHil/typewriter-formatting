@@ -7,7 +7,7 @@ html, body {
 
 
 
-/* prefers-reduced-motion */
+/* Accessibility */
 
 @media screen and (prefers-reduced-motion: reduce), (update: slow) {
   * {
@@ -15,6 +15,10 @@ html, body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
   }
+}
+
+*:focus-visible {
+  outline: 3px solid var(--light2);
 }
 
 
@@ -66,7 +70,7 @@ input.disabled {
   -webkit-text-decoration-color: var(--dark1);
           text-decoration-color: var(--dark1);
 }
-#byLine:hover {
+#byLine:hover, #byLine:focus-visible {
   background-color: rgba(255, 255, 255, 0.1);
 }
 
@@ -114,7 +118,7 @@ input.disabled {
     -webkit-text-decoration-color: var(--light2);
             text-decoration-color: var(--light2);
   }
-  #byLine:hover {
+  #byLine:hover, #byLine:focus-visible {
     background-color: rgba(0, 0, 0, 0.1);
   }
 }
@@ -240,7 +244,7 @@ summary {
   color: var(--light0);
   cursor: pointer;
 }
-.reset:hover {
+.reset:hover, .reset:focus-visible {
   background-color: var(--dark2);
 }
 .reset {
@@ -348,7 +352,7 @@ main {
   display: inline-block;
   transition: background-color 200ms, color 200ms;
 }
-.page:hover > .line> .spaceBlock {
+.page:hover > .line > .spaceBlock {
   background-color: var(--dark1);
   color: var(--light0);
 }
