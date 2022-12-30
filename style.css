@@ -34,6 +34,7 @@ html, body {
   --dark0: #020D0B; /*#000*/
   --primary: linear-gradient(90deg, #128e5a, #12858e);
   --secondary: linear-gradient(90deg, #32ae7a, #32a5ae);
+  --scale: 1;
 }
 body {
   scrollbar-color: rgba(255, 255, 255, 0.24) var(--dark0);
@@ -297,6 +298,10 @@ label.disabled {
 input[type=number].smallWidth {
   width: 4ch;
 }
+input[type=file] {
+  box-sizing: border-box;
+  width: 100%;
+}
 
 
 
@@ -313,7 +318,6 @@ main {
   padding: 0.25rem;
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
   align-items: start;
 }
 #info {
@@ -342,6 +346,9 @@ main {
   border: 2px solid var(--dark2);
   border-radius: 0.25rem;
   margin: auto;
+  transform: scale(1, var(--scale));
+  background-image: var(--file);
+  background-size: 100% 100%;
 }
 .spaceBlock {
   height: 1em;

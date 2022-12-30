@@ -13,7 +13,8 @@ const charsToHyphen = document.getElementById('charsToHyphen');
 const addHyphen = document.getElementById('addHyphen');
 const resetInput = document.getElementsByClassName('reset')[0];
 const resetOptions = document.getElementsByClassName('reset')[1];
-const names = ['input', 'charsOnLine', 'linesOnPage', 'center', 'centerCharsOnLine', 'columns', 'columnGap', 'wordBreak', 'charsToHyphen', 'addHyphen'];
+const file = document.getElementById('file');
+const names = ['input', 'charsOnLine', 'linesOnPage', 'center', 'centerCharsOnLine', 'columns', 'columnGap', 'wordBreak', 'charsToHyphen', 'addHyphen', 'file'];
 
 for (const element of names) {
   const old = localStorage.getItem(element);
@@ -30,6 +31,8 @@ centerDisabled();
 columnsDisabled();
 wordBreakDisabled();
 paddingCalc();
+
+
 
 /* Listeners */
 
@@ -59,7 +62,9 @@ function paddingCalc() {
   document.documentElement.style.setProperty('--width', charsOnLine.value + 'ch');
   document.documentElement.style.setProperty('--height', linesOnPage.value + 'em');
 }
-paddingCalc();
+
+const page = document.getElementsByClassName('page')[0].getBoundingClientRect();
+document.documentElement.style.setProperty('--scale', page.width / 8.5 * 11 / page.height);
 
 charsOnLine.addEventListener('change', function() {
   this.value = Math.max(1, this.value);
@@ -160,6 +165,10 @@ addHyphen.addEventListener('click', function() {
   generate();
 });
 
+file.addEventListener('change', function() {
+  document.documentElement.style.setProperty('--file', 'url(' + URL.createObjectURL(this.files[0]) + ')');
+});
+
 resetOptions.addEventListener('click', function() {
   document.getElementById('optionsContainer').reset();
   for (const element of names) {
@@ -176,6 +185,8 @@ resetOptions.addEventListener('click', function() {
   paddingCalc();
   generate();
 });
+
+
 
 /*Generator*/
 
