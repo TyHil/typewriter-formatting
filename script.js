@@ -179,6 +179,7 @@ resetOptions.addEventListener('click', function() {
       localStorage.setItem(element, domElement.value);
     }
   }
+  document.documentElement.style.setProperty('--file', '');
   centerDisabled();
   columnsDisabled();
   wordBreakDisabled();
