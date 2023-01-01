@@ -29,6 +29,7 @@ html, body {
   --light0: #E9F4F2; /*#fff*/
   --light1: #CCD7D5; /*#dfdfdf*/
   --light2: #AFBAB8; /*#bfbfbf*/
+  --dark3: #596462; /*#606060*/
   --dark2: #3C4745; /*#404040*/
   --dark1: #1F2A28; /*#202020*/
   --dark0: #020D0B; /*#000*/
@@ -84,6 +85,7 @@ input.disabled {
     --light0: #020D0B; /*#000*/
     --light1: #1F2A28; /*#202020*/
     --light2: #2D3836; /*#303030*/
+    --dark3: #93A3A0; /*#9f9f9f*/
     --dark2: #AFBAB8; /*#bfbfbf*/
     --dark1: #CCD7D5; /*#dfdfdf*/
     --dark0: #E9F4F2; /*#fff*/
@@ -238,18 +240,22 @@ summary {
   display: flex;
   justify-content: space-between;
 }
-.reset {
+.reset, input[type=file]::file-selector-button {
   border: none;
   border-radius: 0.25rem;
-  background-color: var(--dark1);
+  background-color: var(--dark2);
   color: var(--light0);
   cursor: pointer;
 }
-.reset:hover, .reset:focus-visible {
-  background-color: var(--dark2);
+.reset:hover, .reset:focus-visible, input[type=file]::file-selector-button:hover, input[type=file]:focus-visible::file-selector-button {
+  background-color: var(--dark3);
 }
 .reset {
   display: inline;
+}
+input[type=file]::file-selector-button {
+  line-height: 1rem;
+  padding: 0.2rem 0.5rem 0.2rem 0.5rem;
 }
 #optionsContainer {
   margin-top: 0.2rem;
