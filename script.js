@@ -1,4 +1,4 @@
-/*Constants*/
+/* Constants */
 
 const main = document.getElementsByTagName('main')[0];
 const input = document.getElementById('input');
@@ -166,7 +166,7 @@ addHyphen.addEventListener('click', function() {
 });
 
 file.addEventListener('change', function() {
-  document.documentElement.style.setProperty('--file', 'url(' + URL.createObjectURL(this.files[0]) + ')');
+  document.documentElement.style.setProperty('--file', 'url(' + (this.value.length ? URL.createObjectURL(this.files[0]) : '') + ')');
 });
 
 resetOptions.addEventListener('click', function() {
