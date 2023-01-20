@@ -356,7 +356,7 @@ function generate() {
     const doubleSpaceBlocks = document.querySelectorAll('.spaceBlock+.spaceBlock');
     for (let i = 0; i < doubleSpaceBlocks.length; i++) {
       const prev = doubleSpaceBlocks[i].previousSibling;
-      const width = parseInt(doubleSpaceBlocks[i].innerText) + parseInt(prev.innerText)
+      const width = parseInt(doubleSpaceBlocks[i].innerText) + parseInt(prev.innerText);
       doubleSpaceBlocks[i].style.width = width.toString() + 'ch';
       doubleSpaceBlocks[i].innerText = '\u00A0'.repeat(Math.floor((width-width.toString().length)/2)) + width.toString() + '\u00A0'.repeat(Math.ceil((width-width.toString().length)/2));
       prev.remove();
