@@ -33,6 +33,7 @@ html, body {
   --dark2: #3C4745; /*#404040*/
   --dark1: #1F2A28; /*#202020*/
   --dark0: #020D0B; /*#000*/
+  --dark0rgb: 2, 13, 11;
   --primary: linear-gradient(90deg, #128e5a, #12858e);
   --secondary: linear-gradient(90deg, #32ae7a, #32a5ae);
   --scale: 1;
@@ -89,6 +90,7 @@ input.disabled {
     --dark2: #AFBAB8; /*#bfbfbf*/
     --dark1: #CCD7D5; /*#dfdfdf*/
     --dark0: #E9F4F2; /*#fff*/
+    --dark0rgb: 233, 244, 242;
     --primary: linear-gradient(90deg, #1bd285, #1bc4d2);
     --secondary: linear-gradient(90deg, #00b265, #00a4b2);
   }
@@ -353,7 +355,7 @@ main {
   border-radius: 0.25rem;
   margin: auto;
   transform: scale(1, var(--scale));
-  background-image: var(--file);
+  background: linear-gradient(0deg, rgba(var(--dark0rgb), var(--transparency)), rgba(var(--dark0rgb), var(--transparency))), var(--file);
   background-size: 100% 100%;
 }
 .spaceBlock {

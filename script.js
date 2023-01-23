@@ -14,7 +14,8 @@ const addHyphen = document.getElementById('addHyphen');
 const resetInput = document.getElementsByClassName('reset')[0];
 const resetOptions = document.getElementsByClassName('reset')[1];
 const file = document.getElementById('file');
-const names = ['input', 'charsOnLine', 'linesOnPage', 'center', 'centerCharsOnLine', 'columns', 'columnGap', 'wordBreak', 'charsToHyphen', 'addHyphen', 'file'];
+const transparency = document.getElementById('transparency');
+const names = ['input', 'charsOnLine', 'linesOnPage', 'center', 'centerCharsOnLine', 'columns', 'columnGap', 'wordBreak', 'charsToHyphen', 'addHyphen', 'file', 'transparency'];
 
 for (const element of names) {
   const old = localStorage.getItem(element);
@@ -31,6 +32,7 @@ centerDisabled();
 columnsDisabled();
 wordBreakDisabled();
 paddingCalc();
+transparencyUpdate();
 
 
 
@@ -166,7 +168,25 @@ addHyphen.addEventListener('click', function() {
 });
 
 file.addEventListener('change', function() {
-  document.documentElement.style.setProperty('--file', 'url(' + (this.value.length ? URL.createObjectURL(this.files[0]) : '') + ')');
+  if (this.value.length) {
+    document.documentElement.style.setProperty('--file', 'url(' + URL.createObjectURL(this.files[0]) + ')');
+    transparency.classList.remove('disabled');
+    document.querySelector('label[for="transparency"]').classList.remove('disabled');
+  } else {
+    document.documentElement.style.setProperty('--file', 'url()');
+    transparency.classList.add('disabled');
+    document.querySelector('label[for="transparency"]').classList.add('disabled');
+  }
+});
+
+
+function transparencyUpdate() {
+  document.documentElement.style.setProperty('--transparency', transparency.value / 100);
+}
+transparency.addEventListener('change', function() {
+  this.value = Math.max(0, Math.min(this.value, 100));
+  transparencyUpdate();
+  localStorage.setItem('transparency', this.value);
 });
 
 resetOptions.addEventListener('click', function() {
@@ -184,6 +204,7 @@ resetOptions.addEventListener('click', function() {
   columnsDisabled();
   wordBreakDisabled();
   paddingCalc();
+  transparencyUpdate();
   generate();
 });
 
