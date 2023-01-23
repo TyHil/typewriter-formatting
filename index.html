@@ -113,11 +113,11 @@
           <legend>Page</legend>
           <div class="option">
             <label for="charsOnLine" title="Characters on a line on your typewriter, 65 with 1in margin, 0.1in characters, and 8.5in wide paper">Characters on a line</label>
-            <input type="number" id="charsOnLine" name="charsOnLine" value="85" title="Characters on a line on your typewriter, 65 with 1in margin, 0.1in characters, and 8.5in wide paper">
+            <input type="number" id="charsOnLine" name="charsOnLine" value="85" min="1" title="Characters on a line on your typewriter, 65 with 1in margin, 0.1in characters, and 8.5in wide paper">
           </div>
           <div class="option">
             <label for="linesOnPage" title="Lines on a page, 54 with 1in margins and 11in tall paper">Lines on a page</label>
-            <input type="number" id="linesOnPage" name="linesOnPage" value="66" title="Lines on a page, 54 with 1in margins and 11in tall paper">
+            <input type="number" id="linesOnPage" name="linesOnPage" value="66" min="1" title="Lines on a page, 54 with 1in margins and 11in tall paper">
           </div>
         </fieldset>
         <fieldset>
@@ -127,17 +127,17 @@
           </legend>
           <div class="option">
             <label for="centerCharsOnLine" class="disabled" title="Shorten line width when center is true">Characters on a line</label>
-            <input type="number" class="disabled" id="centerCharsOnLine" name="centerCharsOnLine" value="54" title="Shorten line width when center is true">
+            <input type="number" class="disabled" id="centerCharsOnLine" name="centerCharsOnLine" value="54" min="1" title="Shorten line width when center is true">
           </div>
         </fieldset>
         <fieldset>
           <legend>
             <label for="columns" title="Split into columns">Columns</label>
-            <input type="number" class="smallWidth" id="columns" name="columns" value="1" title="Split into columns">
+            <input type="number" class="smallWidth" id="columns" name="columns" value="1" min="1" title="Split into columns">
           </legend>
           <div class="option">
             <label for="columnGap" class="disabled" title="Characters between columns">Column Gap</label>
-            <input type="number" class="disabled" class="smallWidth" id="columnGap" name="columnGap" value="0" title="Characters between columns">
+            <input type="number" class="disabled" class="smallWidth" id="columnGap" name="columnGap" value="0" min="0" title="Characters between columns">
           </div>
         </fieldset>
         <fieldset>
@@ -147,7 +147,7 @@
           </legend>
           <div class="option">
             <label for="charsToHyphen" class="disabled" title="Min number of characters that must be on each line for a word to split">Characters to break</label>
-            <input type="number" class="disabled smallWidth" id="charsToHyphen" name="charsToHyphen" value="3" title="Min number of characters that must be on each line for a word to split">
+            <input type="number" class="disabled smallWidth" id="charsToHyphen" name="charsToHyphen" value="3" min="1" title="Min number of characters that must be on each line for a word to split">
           </div>
           <div class="option checkbox">
             <input class="disabled" type="checkbox" id="addHyphen" name="addHyphen" title="Add hyphen" checked>
@@ -159,7 +159,7 @@
           <input type="file" id="file" name="file" value="" title="Background image for the page, to draw ascii art over">
           <div class="option">
             <label for="transparency" class="disabled" title="Transparency of background image">Transparency</label>
-            <input type="number" class="smallWidth disabled" id="transparency" name="transparency" value="0" title="Transparency of background image">
+            <input type="number" class="smallWidth disabled" id="transparency" name="transparency" value="0" min="0" max="100" title="Transparency of background image">
           </div>
         </fieldset>
       </form>

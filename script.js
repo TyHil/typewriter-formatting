@@ -69,7 +69,7 @@ const page = document.getElementsByClassName('page')[0].getBoundingClientRect();
 document.documentElement.style.setProperty('--scale', page.width / 8.5 * 11 / page.height);
 
 charsOnLine.addEventListener('change', function() {
-  this.value = Math.max(1, this.value);
+  this.value = Math.max(this.min, this.value);
   columnsUpdate();
   paddingCalc();
   localStorage.setItem('charsOnLine', this.value);
@@ -77,7 +77,7 @@ charsOnLine.addEventListener('change', function() {
 });
 
 linesOnPage.addEventListener('change', function() {
-  this.value = Math.max(1, this.value);
+  this.value = Math.max(this.min, this.value);
   paddingCalc();
   localStorage.setItem('linesOnPage', this.value);
   generate();
@@ -100,14 +100,14 @@ center.addEventListener('click', function() {
 });
 
 centerCharsOnLine.addEventListener('change', function() {
-  this.value = Math.max(1, Math.min(this.value, charsOnLine.value));
+  this.value = Math.max(this.min, Math.min(this.value, charsOnLine.value));
   columnsUpdate();
   localStorage.setItem('centerCharsOnLine', this.value);
   generate();
 });
 
 function columnsUpdate() {
-  columns.value = Math.max(1, Math.min(columns.value, center.checked ? centerCharsOnLine.value : charsOnLine.value));
+  columns.value = Math.max(columns.min, Math.min(columns.value, center.checked ? centerCharsOnLine.value : charsOnLine.value));
   localStorage.setItem('columns', columns.value);
   columnsDisabled();
   columnGapUpdate();
@@ -129,7 +129,7 @@ columns.addEventListener('change', function() {
 
 function columnGapUpdate() {
   const max = Math.floor(((center.checked ? centerCharsOnLine.value : charsOnLine.value) - columns.value) / Math.max(1, columns.value - 1));
-  columnGap.value = Math.max(0, Math.min(columnGap.value, max));
+  columnGap.value = Math.max(columnGap.min, Math.min(columnGap.value, max));
   localStorage.setItem('columnGap', columnGap.value);
 }
 columnGap.addEventListener('change', function() {
@@ -157,7 +157,7 @@ wordBreak.addEventListener('click', function() {
 });
 
 charsToHyphen.addEventListener('change', function() {
-  this.value = Math.max(1, this.value);
+  this.value = Math.max(this.min, this.value);
   localStorage.setItem('charsToHyphen', this.value);
   generate();
 });
@@ -184,7 +184,7 @@ function transparencyUpdate() {
   document.documentElement.style.setProperty('--transparency', transparency.value / 100);
 }
 transparency.addEventListener('change', function() {
-  this.value = Math.max(0, Math.min(this.value, 100));
+  this.value = Math.max(this.min, Math.min(this.value, this.max));
   transparencyUpdate();
   localStorage.setItem('transparency', this.value);
 });
