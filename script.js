@@ -15,7 +15,8 @@ const resetInput = document.getElementsByClassName('reset')[0];
 const resetOptions = document.getElementsByClassName('reset')[1];
 const file = document.getElementById('file');
 const transparency = document.getElementById('transparency');
-const names = ['input', 'charsOnLine', 'linesOnPage', 'center', 'centerCharsOnLine', 'columns', 'columnGap', 'wordBreak', 'charsToHyphen', 'addHyphen', 'file', 'transparency'];
+const showSpaces = document.getElementById('showSpaces');
+const names = ['input', 'charsOnLine', 'linesOnPage', 'center', 'centerCharsOnLine', 'columns', 'columnGap', 'wordBreak', 'charsToHyphen', 'addHyphen', 'file', 'transparency', 'showSpaces'];
 
 for (const element of names) {
   const old = localStorage.getItem(element);
@@ -189,6 +190,18 @@ transparency.addEventListener('change', function() {
   localStorage.setItem('transparency', this.value);
 });
 
+showSpaces.addEventListener('click', function() {
+  const pages = document.getElementsByClassName('page');
+  for(let i = 0; i < pages.length; i++) {
+    if (this.checked) {
+      pages[i].classList.add('showSpaces');
+    } else {
+      pages[i].classList.remove('showSpaces');
+    }
+  }
+  localStorage.setItem('showSpaces', this.checked);
+});
+
 resetOptions.addEventListener('click', function() {
   document.getElementById('optionsContainer').reset();
   for (const element of names) {
@@ -282,6 +295,9 @@ function addStringToLine(line, text, currentInfo) {
 function createPage(pageNum) {
   const page = document.createElement('div');
   page.classList.add('page');
+  if (showSpaces.checked) {
+    page.classList.add('showSpaces');
+  }
   page.id = 'page' + pageNum.toString();
   return page;
 }

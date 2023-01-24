@@ -367,7 +367,7 @@ main {
   display: inline-block;
   transition: background-color 200ms, color 200ms;
 }
-.page:hover > .line > .spaceBlock {
+.page.showSpaces:hover > .line > .spaceBlock {
   background-color: var(--dark1);
   color: var(--light0);
 }
