@@ -329,7 +329,6 @@ function addWordToString(text, word, currentInfo) {
     }
     if (wordBreak.checked && charsLeft > 0 && charsLeft >= charsToHyphen.value && word.length - charsLeft >= charsToHyphen.value) { //check enough chars on each line
       addStringToMain(text + word.slice(0, charsLeft) + (addHyphen.checked ? '- ' : ' '), currentInfo); //add split and hyphen if necessary
-      currentInfo.line++;
       return addWordToString('', word.slice(charsLeft), currentInfo); //add other half of word to a new line
     } else if (word.length > currentInfo.columnWidth) { //force word break
       addStringToMain(text, currentInfo);
