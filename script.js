@@ -4,8 +4,9 @@ const main = document.getElementsByTagName('main')[0];
 const input = document.getElementById('input');
 const charsOnLine = document.getElementById('charsOnLine');
 const linesOnPage = document.getElementById('linesOnPage');
+const marginLines = document.getElementById('marginLines');
+const marginChars = document.getElementById('marginChars');
 const center = document.getElementById('center');
-const centerCharsOnLine = document.getElementById('centerCharsOnLine');
 const columns = document.getElementById('columns');
 const columnGap = document.getElementById('columnGap');
 const wordBreak = document.getElementById('wordBreak');
@@ -16,7 +17,9 @@ const resetOptions = document.getElementsByClassName('reset')[1];
 const file = document.getElementById('file');
 const transparency = document.getElementById('transparency');
 const showSpaces = document.getElementById('showSpaces');
-const names = ['input', 'charsOnLine', 'linesOnPage', 'center', 'centerCharsOnLine', 'columns', 'columnGap', 'wordBreak', 'charsToHyphen', 'addHyphen', 'file', 'transparency', 'showSpaces'];
+const names = ['input', 'charsOnLine', 'linesOnPage', 'marginLines', 'marginChars', 'center', 'columns', 'columnGap', 'wordBreak', 'charsToHyphen', 'addHyphen', 'file', 'transparency', 'showSpaces'];
+let charsOnLineWithMargin;
+let linesOnPageWithMargin;
 
 for (const element of names) {
   const old = localStorage.getItem(element);
@@ -29,10 +32,9 @@ for (const element of names) {
     }
   }
 }
-centerDisabled();
+paddingCalc();
 columnsDisabled();
 wordBreakDisabled();
-paddingCalc();
 transparencyUpdate();
 
 
@@ -60,55 +62,57 @@ resetInput.addEventListener('click', function() {
 });
 
 function paddingCalc() {
-  document.documentElement.style.setProperty('--paddingTB', Math.max((66-linesOnPage.value)/2,0).toString() + 'em');
-  document.documentElement.style.setProperty('--paddingLR', Math.max((85-charsOnLine.value)/2,0).toString() + 'ch');
-  document.documentElement.style.setProperty('--width', charsOnLine.value + 'ch');
-  document.documentElement.style.setProperty('--height', linesOnPage.value + 'em');
+  charsOnLineWithMargin = charsOnLine.value - 2 * parseInt(marginChars.value);
+  linesOnPageWithMargin = linesOnPage.value - 2 * parseInt(marginLines.value);
+  document.documentElement.style.setProperty('--paddingTB', marginLines.value + 'em');
+  document.documentElement.style.setProperty('--paddingLR', marginChars.value + 'ch');
+  document.documentElement.style.setProperty('--width', charsOnLineWithMargin + 'ch');
+  document.documentElement.style.setProperty('--height', linesOnPageWithMargin + 'em');
+  document.documentElement.style.setProperty('--scale', 1);
+  const page = document.getElementsByClassName('page')[0].getBoundingClientRect();
+  document.documentElement.style.setProperty('--scale', page.width / (parseInt(charsOnLine.value) / 10) * (parseInt(linesOnPage.value) / 6) / page.height);
 }
-
-const page = document.getElementsByClassName('page')[0].getBoundingClientRect();
-document.documentElement.style.setProperty('--scale', page.width / 8.5 * 11 / page.height);
 
 charsOnLine.addEventListener('change', function() {
   this.value = Math.max(this.min, this.value);
-  columnsUpdate();
+  marginChars.value = Math.max(marginChars.min, Math.min(marginChars.value, Math.floor(this.value / 2)));
   paddingCalc();
+  columnsUpdate();
   localStorage.setItem('charsOnLine', this.value);
   generate();
 });
 
 linesOnPage.addEventListener('change', function() {
   this.value = Math.max(this.min, this.value);
+  marginLines.value = Math.max(marginLines.min, Math.min(marginLines.value, Math.floor(this.value / 2)));
   paddingCalc();
   localStorage.setItem('linesOnPage', this.value);
   generate();
 });
 
-function centerDisabled() {
-  if (center.checked) {
-    centerCharsOnLine.classList.remove('disabled');
-    document.querySelector('label[for="centerCharsOnLine"]').classList.remove('disabled');
-  } else {
-    centerCharsOnLine.classList.add('disabled');
-    document.querySelector('label[for="centerCharsOnLine"]').classList.add('disabled');
-  }
-}
+marginLines.addEventListener('change', function() {
+  this.value = Math.max(this.min, Math.min(this.value, Math.floor(linesOnPage.value / 2)));
+  paddingCalc();
+  columnsUpdate();
+  localStorage.setItem('marginLines', this.value);
+  generate();
+});
+
+marginChars.addEventListener('change', function() {
+  this.value = Math.max(this.min, Math.min(this.value, Math.floor(charsOnLine.value / 2)));
+  paddingCalc();
+  localStorage.setItem('marginChars', this.value);
+  generate();
+});
+
 center.addEventListener('click', function() {
-  centerDisabled();
   columnsUpdate();
   localStorage.setItem('center', this.checked);
   generate();
 });
 
-centerCharsOnLine.addEventListener('change', function() {
-  this.value = Math.max(this.min, Math.min(this.value, charsOnLine.value));
-  columnsUpdate();
-  localStorage.setItem('centerCharsOnLine', this.value);
-  generate();
-});
-
 function columnsUpdate() {
-  columns.value = Math.max(columns.min, Math.min(columns.value, center.checked ? centerCharsOnLine.value : charsOnLine.value));
+  columns.value = Math.max(columns.min, Math.min(columns.value, charsOnLineWithMargin));
   localStorage.setItem('columns', columns.value);
   columnsDisabled();
   columnGapUpdate();
@@ -129,7 +133,7 @@ columns.addEventListener('change', function() {
 });
 
 function columnGapUpdate() {
-  const max = Math.floor(((center.checked ? centerCharsOnLine.value : charsOnLine.value) - columns.value) / Math.max(1, columns.value - 1));
+  const max = Math.floor((charsOnLineWithMargin - columns.value) / Math.max(1, columns.value - 1));
   columnGap.value = Math.max(columnGap.min, Math.min(columnGap.value, max));
   localStorage.setItem('columnGap', columnGap.value);
 }
@@ -213,7 +217,6 @@ resetOptions.addEventListener('click', function() {
     }
   }
   document.documentElement.style.setProperty('--file', '');
-  centerDisabled();
   columnsDisabled();
   wordBreakDisabled();
   paddingCalc();
@@ -229,8 +232,7 @@ class CurrentInfo {
   constructor() {
     this.line = 0;
     this.column = 0;
-    this.columnWidths = this.findColumnWidths(center.checked ? centerCharsOnLine.value : charsOnLine.value);
-    this.columnWidthsNotCentered = this.findColumnWidths(charsOnLine.value);
+    this.columnWidths = this.findColumnWidths(charsOnLineWithMargin);
   }
   findColumnWidths(characters) {
     const spaceToFill = (characters - (columnGap.value * (columns.value - 1)));
@@ -244,11 +246,8 @@ class CurrentInfo {
   get columnWidth() {
     return this.columnWidths[this.column];
   }
-  get columnWidthNotCentered() {
-    return this.columnWidthsNotCentered[this.column];
-  }
   increment() {
-    if (this.line % linesOnPage.value === (linesOnPage.value - 1)) { //between page dash
+    if (this.line % linesOnPageWithMargin === (linesOnPageWithMargin - 1)) { //between page dash
       this.column = (this.column + 1) % columns.value;
     }
     this.line++;
@@ -303,7 +302,7 @@ function createPage(pageNum) {
 }
 
 function addStringToMain(text, currentInfo) {
-  const charsLeft = currentInfo.columnWidthNotCentered - text.slice(0, -1).length;
+  const charsLeft = currentInfo.columnWidth - text.slice(0, -1).length;
   if (center.checked) {
     const leftSpaces = Math.ceil(charsLeft / 2); //spaces on left
     const rightSpaces = Math.floor(charsLeft / 2); //spaces on right
@@ -314,12 +313,12 @@ function addStringToMain(text, currentInfo) {
   if (columns.value != 1 && currentInfo.column != columns.value - 1 && parseInt(columnGap.value)) {
     text += ' '.repeat(columnGap.value);
   }
-  const linePlacement = Math.floor(currentInfo.line / (parseInt(columns.value) * parseInt(linesOnPage.value))) * parseInt(linesOnPage.value) + currentInfo.line % parseInt(linesOnPage.value);
+  const linePlacement = Math.floor(currentInfo.line / (parseInt(columns.value) * linesOnPageWithMargin)) * linesOnPageWithMargin + currentInfo.line % linesOnPageWithMargin;
   let line = document.getElementById('line' + linePlacement.toString());
   if (line !== null) {
     addStringToLine(line, text, currentInfo);
   } else {
-    const pageCount = Math.floor(currentInfo.line / (parseInt(columns.value) * parseInt(linesOnPage.value)));
+    const pageCount = Math.floor(currentInfo.line / (parseInt(columns.value) * linesOnPageWithMargin));
     let page = document.getElementById('page' + pageCount.toString());
     if (page === null) {
       page = createPage(pageCount);
@@ -405,11 +404,11 @@ function generate() {
   }
 
   //lines
-  currentInfo.line = Math.floor(currentInfo.line / (parseInt(columns.value) * parseInt(linesOnPage.value))) * parseInt(linesOnPage.value) + Math.min(currentInfo.line % (parseInt(columns.value) * parseInt(linesOnPage.value)), parseInt(linesOnPage.value)); //basically divide currentInfo.line by columns
+  currentInfo.line = Math.floor(currentInfo.line / (parseInt(columns.value) * linesOnPageWithMargin)) * linesOnPageWithMargin + Math.min(currentInfo.line % (parseInt(columns.value) * linesOnPageWithMargin), linesOnPageWithMargin); //basically divide currentInfo.line by columns
   document.getElementById('lineCount').innerText = currentInfo.line.toString() + ' line' + ((currentInfo.line !== 1) ? 's' : '');
 
   //pages
-  const numPages = Math.ceil(currentInfo.line / parseInt(linesOnPage.value));
+  const numPages = Math.ceil(currentInfo.line / linesOnPageWithMargin);
   document.getElementById('pageCount').innerText = numPages.toString() + ' page' + ((numPages !== 1) ? 's' : '');
 }
 

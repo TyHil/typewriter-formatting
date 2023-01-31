@@ -113,21 +113,19 @@
           <legend>Page</legend>
           <div class="option">
             <label for="charsOnLine" title="Characters on a line on your typewriter, 65 with 1in margin, 0.1in characters, and 8.5in wide paper">Characters on a line</label>
-            <input type="number" id="charsOnLine" name="charsOnLine" value="85" min="1" title="Characters on a line on your typewriter, 65 with 1in margin, 0.1in characters, and 8.5in wide paper">
+            <input type="number" id="charsOnLine" name="charsOnLine" value="85" min="1" title="Characters on a line on your typewriter, 85 with 10 characters per inch and 8.5in wide paper">
           </div>
           <div class="option">
             <label for="linesOnPage" title="Lines on a page, 54 with 1in margins and 11in tall paper">Lines on a page</label>
-            <input type="number" id="linesOnPage" name="linesOnPage" value="66" min="1" title="Lines on a page, 54 with 1in margins and 11in tall paper">
+            <input type="number" id="linesOnPage" name="linesOnPage" value="66" min="1" title="Lines on a page, 66 with 6 lines per inch and 11in tall paper">
           </div>
-        </fieldset>
-        <fieldset>
-          <legend>
-            <input type="checkbox" id="center" name="center" title="Center each line">
-            <label for="center" title="Center each line">Center Text</label>
-          </legend>
           <div class="option">
-            <label for="centerCharsOnLine" class="disabled" title="Shorten line width when center is true">Characters on a line</label>
-            <input type="number" class="disabled" id="centerCharsOnLine" name="centerCharsOnLine" value="54" min="1" title="Shorten line width when center is true">
+            <label for="marginLines" title="Top and bottom margin in lines, 6 with 1in margins and 11in tall paper">Top/bottom margin</label>
+            <input type="number" id="marginLines" name="marginLines" value="0" min="0" title="Top and bottom margin in lines, 6 with 1in margins and 11in tall paper">
+          </div>
+          <div class="option">
+            <label for="marginChars" title="Side margin in characters, 10 with 1in margins and 8.5in wide paper">Side margin</label>
+            <input type="number" id="marginChars" name="marginChars" value="0" min="0" title="Side margin in characters, 10 with 1in margins and 8.5in wide paper">
           </div>
         </fieldset>
         <fieldset>
@@ -163,7 +161,11 @@
           </div>
         </fieldset>
         <fieldset>
-          <legend>Display</legend>
+          <legend>Other</legend>
+          <div class="option checkbox">
+            <input type="checkbox" id="center" name="center" title="Center each line">
+            <label for="center" title="Center each line">Center Text</label>
+          </div>
           <div class="option checkbox">
             <input type="checkbox" id="showSpaces" name="showSpaces" title="Show spaces on hover" checked>
             <label for="showSpaces" title="Show spaces on hover">Show spaces on hover</label>
