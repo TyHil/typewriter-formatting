@@ -4,9 +4,8 @@ const main = document.getElementsByTagName('main')[0];
 const input = document.getElementById('input');
 const charsOnLine = document.getElementById('charsOnLine');
 const linesOnPage = document.getElementById('linesOnPage');
-const marginLines = document.getElementById('marginLines');
 const marginChars = document.getElementById('marginChars');
-const center = document.getElementById('center');
+const marginLines = document.getElementById('marginLines');
 const columns = document.getElementById('columns');
 const columnGap = document.getElementById('columnGap');
 const wordBreak = document.getElementById('wordBreak');
@@ -16,8 +15,10 @@ const resetInput = document.getElementsByClassName('reset')[0];
 const resetOptions = document.getElementsByClassName('reset')[1];
 const file = document.getElementById('file');
 const transparency = document.getElementById('transparency');
+const center = document.getElementById('center');
 const showSpaces = document.getElementById('showSpaces');
-const names = ['input', 'charsOnLine', 'linesOnPage', 'marginLines', 'marginChars', 'center', 'columns', 'columnGap', 'wordBreak', 'charsToHyphen', 'addHyphen', 'file', 'transparency', 'showSpaces'];
+const renderChar = document.getElementById('renderChar');
+const names = ['input', 'charsOnLine', 'linesOnPage', 'marginChars', 'marginLines', 'columns', 'columnGap', 'wordBreak', 'charsToHyphen', 'addHyphen', 'file', 'transparency', 'center', 'showSpaces', 'renderChar'];
 let charsOnLineWithMargin;
 let linesOnPageWithMargin;
 
@@ -52,7 +53,14 @@ window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', fu
 
 input.addEventListener('change', function() {
   localStorage.setItem('input', this.value);
-  generate();
+  if (!renderChar.checked) {
+    generate();
+  }
+});
+input.addEventListener('input', function() {
+  if (renderChar.checked) {
+    generate();
+  }
 });
 
 resetInput.addEventListener('click', function() {
@@ -90,14 +98,6 @@ linesOnPage.addEventListener('change', function() {
   generate();
 });
 
-marginLines.addEventListener('change', function() {
-  this.value = Math.max(this.min, Math.min(this.value, Math.floor(linesOnPage.value / 2)));
-  paddingCalc();
-  columnsUpdate();
-  localStorage.setItem('marginLines', this.value);
-  generate();
-});
-
 marginChars.addEventListener('change', function() {
   this.value = Math.max(this.min, Math.min(this.value, Math.floor(charsOnLine.value / 2)));
   paddingCalc();
@@ -105,9 +105,11 @@ marginChars.addEventListener('change', function() {
   generate();
 });
 
-center.addEventListener('click', function() {
+marginLines.addEventListener('change', function() {
+  this.value = Math.max(this.min, Math.min(this.value, Math.floor(linesOnPage.value / 2)));
+  paddingCalc();
   columnsUpdate();
-  localStorage.setItem('center', this.checked);
+  localStorage.setItem('marginLines', this.value);
   generate();
 });
 
@@ -184,7 +186,6 @@ file.addEventListener('change', function() {
   }
 });
 
-
 function transparencyUpdate() {
   document.documentElement.style.setProperty('--transparency', transparency.value / 100);
 }
@@ -192,6 +193,12 @@ transparency.addEventListener('change', function() {
   this.value = Math.max(this.min, Math.min(this.value, this.max));
   transparencyUpdate();
   localStorage.setItem('transparency', this.value);
+});
+
+center.addEventListener('click', function() {
+  columnsUpdate();
+  localStorage.setItem('center', this.checked);
+  generate();
 });
 
 showSpaces.addEventListener('click', function() {
@@ -204,6 +211,10 @@ showSpaces.addEventListener('click', function() {
     }
   }
   localStorage.setItem('showSpaces', this.checked);
+});
+
+renderChar.addEventListener('click', function() {
+  localStorage.setItem('renderChar', this.checked);
 });
 
 resetOptions.addEventListener('click', function() {
