@@ -238,9 +238,12 @@ summary {
   cursor: pointer;
   font-size: 1.1em;
 }
-#resetContainer, summary {
+.sectionButtonBox {
   display: flex;
-  justify-content: space-between;
+  gap: 0.5rem;
+}
+.sectionLabel {
+  margin-right: auto;
 }
 .reset, input[type=file]::file-selector-button {
   border: none;

@@ -11,8 +11,10 @@ const columnGap = document.getElementById('columnGap');
 const wordBreak = document.getElementById('wordBreak');
 const charsToHyphen = document.getElementById('charsToHyphen');
 const addHyphen = document.getElementById('addHyphen');
-const resetInput = document.getElementsByClassName('reset')[0];
-const resetOptions = document.getElementsByClassName('reset')[1];
+const resetInputEssay = document.getElementById('resetInputEssay');
+const resetInputASCII = document.getElementById('resetInputASCII');
+const resetOptionsEssay = document.getElementById('resetOptionsEssay');
+const resetOptionsASCII = document.getElementById('resetOptionsASCII');
 const file = document.getElementById('file');
 const transparency = document.getElementById('transparency');
 const center = document.getElementById('center');
@@ -63,10 +65,19 @@ input.addEventListener('input', function() {
   }
 });
 
-resetInput.addEventListener('click', function() {
-  document.getElementById('inputContainer').reset();
+function resetInput() {
   localStorage.setItem('input', input.value);
   generate();
+}
+
+resetInputEssay.addEventListener('click', function() {
+  input.value = "     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus pulvinar ante lectus, in efficitur turpis cursus eget. Nullam ac sem semper, pharetra erat at, elementum arcu. Maecenas neque nisl, cursus eget leo ut, ullamcorper viverra quam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel consectetur felis. Nullam dictum pellentesque arcu, non porta massa. Maecenas congue feugiat ipsum, non hendrerit odio rhoncus vitae. Nulla ut imperdiet eros. Donec arcu sapien, egestas nec scelerisque ut, iaculis eget dui. Mauris iaculis lacus nec libero imperdiet, non scelerisque purus sollicitudin. Vivamus non velit eu lectus lobortis ornare at in est. Curabitur quis elit eleifend, ultricies dolor semper, dapibus massa. Aliquam congue semper sem, vitae porta arcu consectetur euismod. Pellentesque varius odio vitae leo vulputate sodales.\n     Praesent lobortis, massa nec tristique venenatis, felis magna fermentum nunc, eget accumsan dui turpis vel odio. Pellentesque tincidunt, magna id finibus suscipit, turpis nibh accumsan eros, lacinia efficitur nunc augue et mi. Ut blandit sed elit sit amet mollis. Donec vel fringilla orci, sit amet feugiat sapien. Maecenas egestas posuere fermentum. Quisque tempor eu tortor et fermentum. Maecenas molestie metus interdum leo dictum aliquam. Nulla feugiat a quam vitae rhoncus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer sapien diam, pharetra vitae aliquet at, pretium et odio. Nam imperdiet ipsum diam, sit amet dapibus sem condimentum ac.\n     Nulla tincidunt metus at leo pretium, maximus rhoncus neque finibus. Praesent tellus augue, rhoncus et vestibulum in, vulputate ut est. In tristique nibh sed libero pulvinar imperdiet. Cras varius nunc vel scelerisque ullamcorper. Aenean pulvinar varius molestie. Morbi vehicula fringilla elit, egestas elementum quam commodo rhoncus. Cras rhoncus fringilla augue, ut malesuada turpis semper sed. Sed venenatis malesuada commodo. Praesent mattis sem vitae nibh semper, vitae fringilla quam dictum. Praesent ultricies, urna quis pharetra congue, ipsum erat auctor erat, in tempor risus neque in massa. Aliquam tellus metus, blandit vitae fringilla ac, venenatis at lacus.\n     Aliquam erat volutpat. Sed arcu nisi, lobortis sed est cursus, malesuada convallis odio. Praesent faucibus enim et leo accumsan, et facilisis eros eleifend. Donec sit amet dui nec libero pharetra condimentum eget vitae nunc. Cras quis augue eu arcu molestie fringilla in in risus. Pellentesque ullamcorper, ante et sollicitudin pulvinar, ante augue scelerisque lectus, et rutrum dui quam a nunc. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam sodales velit vel magna semper lobortis. In ut eros viverra, finibus eros vel, ornare leo. Morbi pretium facilisis facilisis. Aenean posuere lorem eget libero hendrerit interdum. Nunc tristique ex quis augue rhoncus hendrerit. Vivamus ornare dui vel turpis elementum efficitur. Nam sit amet porta enim.\n     Nunc nec luctus magna, interdum scelerisque urna. Pellentesque ullamcorper nulla augue, a consequat dolor rutrum sed. Aenean ultrices lectus quis lobortis laoreet. Sed a ex a dui facilisis vestibulum in nec orci. Donec id elit eu augue vehicula aliquet ut non mi. Etiam volutpat turpis quis sollicitudin volutpat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nunc sodales mauris vel arcu sollicitudin efficitur. Nunc id vestibulum nisl. Maecenas nec turpis lacinia, porttitor leo euismod, congue dui. Vestibulum mollis quam in nisl gravida eleifend. Curabitur pretium porttitor vulputate. Vivamus laoreet volutpat nisi nec semper. Nam a pretium nunc.\n     Curabitur lacus sem, imperdiet nec ornare ut, iaculis nec magna. Nullam sodales orci sem, ac dignissim mauris dapibus a. Phasellus tempus vulputate nibh, sollicitudin facilisis est sagittis non. Etiam lacinia porttitor diam ac porta. Vestibulum id congue libero. Donec in feugiat massa. In a aliquet sapien. Etiam in elementum lectus.\n     Sed a fermentum dolor. Donec id augue in magna lobortis iaculis a malesuada orci. Phasellus finibus congue aliquet. Sed vitae velit gravida, consequat sapien non, faucibus neque. Morbi iaculis vehicula consectetur. Nunc eu ornare lorem, eu porta leo. Aenean volutpat metus massa, in tincidunt lorem tempus nec. Phasellus fringilla velit in justo cursus, nec suscipit libero imperdiet. Curabitur malesuada placerat sodales. Vestibulum vitae ipsum id neque consectetur pulvinar. Integer nec condimentum ipsum. Mauris et condimentum justo. Etiam eget mi nec tellus vestibulum pulvinar.\n     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque at placerat lectus, vitae sagittis lorem. Sed placerat ac purus mattis interdum. Aenean blandit tempor lacinia. Sed posuere quam eget viverra commodo. Vestibulum luctus felis ut quam elementum mollis. Fusce hendrerit ornare neque, et efficitur odio condimentum eu. Nullam nec mauris commodo, venenatis velit in, facilisis nulla. Aenean vitae magna sit amet lacus iaculis molestie. Phasellus blandit est eget volutpat lobortis.\n     Suspendisse consequat suscipit purus, quis vestibulum diam finibus eget. Nullam eros dolor, semper non dapibus et, imperdiet non urna. Integer quis arcu non velit pellentesque condimentum at at arcu. Etiam dictum cursus justo, et placerat purus sagittis quis. Etiam blandit, lectus non fringilla egestas, neque nunc placerat dui, ac rutrum metus lectus ac dolor. Aenean porta egestas ultricies. Nulla pellentesque ultricies urna vel pulvinar. Morbi dignissim malesuada lacinia.\n     In sed suscipit mi. Vivamus elit nulla, aliquam nec nunc quis, rutrum posuere nisl. Praesent aliquam elit sed mauris placerat, quis ornare nunc facilisis. Suspendisse fringilla sapien in nisl molestie venenatis. Maecenas auctor magna non malesuada vulputate. Nam lobortis dictum mauris quis iaculis. Etiam pharetra hendrerit sem, at sagittis nunc vehicula vitae. Maecenas sodales tortor velit, aliquet fermentum dui sagittis quis. Curabitur cursus a ligula blandit molestie. Proin vitae massa ac turpis porttitor porta sed vel sapien. Maecenas tincidunt faucibus orci mollis volutpat. Fusce ac ligula a enim suscipit tempor. Donec eu magna placerat, varius mi sit amet, tristique neque. Nunc elit nisi, pharetra ut ex id, tincidunt accumsan mi. Duis dictum, lectus id dignissim dictum, lorem enim posuere eros, sit amet aliquam felis ante ac neque. Integer vehicula a leo egestas pretium.";
+  resetInput();
+});
+
+resetInputASCII.addEventListener('click', function() {
+  document.getElementById('inputContainer').reset();
+  resetInput();
 });
 
 function paddingCalc() {
@@ -217,8 +228,7 @@ renderChar.addEventListener('click', function() {
   localStorage.setItem('renderChar', this.checked);
 });
 
-resetOptions.addEventListener('click', function() {
-  document.getElementById('optionsContainer').reset();
+function resetOptions() {
   for (const element of names) {
     const domElement = document.getElementById(element);
     if (domElement.type === 'checkbox') {
@@ -233,6 +243,22 @@ resetOptions.addEventListener('click', function() {
   paddingCalc();
   transparencyUpdate();
   generate();
+}
+
+resetOptionsEssay.addEventListener('click', function() {
+  document.getElementById('optionsContainer').reset();
+  marginChars.value = 10;
+  marginLines.value = 6;
+  columns.value = 1;
+  columnGap.value = 0;
+  wordBreak.checked = true;
+  center.checked = false;
+  resetOptions();
+});
+
+resetOptionsASCII.addEventListener('click', function() {
+  document.getElementById('optionsContainer').reset();
+  resetOptions();
 });
 
 

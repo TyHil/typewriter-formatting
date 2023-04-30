@@ -9,22 +9,23 @@
   <meta name="description" content="Format text to be typed on a typewriter." />
   <meta name="canonical" href="https://tylergordonhill.com/typewriter-formatting" />
   <meta name="theme-color" content="#128A74" />
-  
+
   <!-- Open Graph Meta Tags -->
   <meta property="og:title" content="Typewriter Formatting" />
-  <meta property="og:description" content="Format text to be typed on a typewriter."/>
+  <meta property="og:description" content="Format text to be typed on a typewriter." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://tylergordonhill.com/typewriter-formatting" />
   <meta property="og:image" content="https://tylergordonhill.com/typewriter-formatting/linkpreview.png" />
   <meta property="og:image:type" content="image/png">
-  <meta property="og:image:alt" content="Screenshot of the website displaying the text input field and rendering options. ">
+  <meta property="og:image:alt"
+    content="Screenshot of the website displaying the text input field and rendering options. ">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
 
   <!-- Twitter Meta Tags -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:domain" content="tylergordonhill.com" />
-  
+
   <!-- Link Tags -->
   <link rel="icon" href="/typewriter-formatting/tabicon.png" />
   <link href="typewriter-formatting/style.css" rel="stylesheet" type="text/css" />
@@ -37,9 +38,10 @@
       <h2 id="title">Typewriter Formatting</h2>
       <a id="byLine" href="/">Tyler Gordon Hill</a>
     </div>
-    <div id="resetContainer">
-      <label for="input" title="Text input">Text input</label>
-      <button class="reset">Reset</button>
+    <div id="resetContainer" class="sectionButtonBox">
+      <label for="input" title="Text input" class="sectionLabel">Text input</label>
+      <button class="reset" id="resetInputEssay" title="Reset text input to essay example">Reset Essay</button>
+      <button class="reset" id="resetInputASCII" title="Reset text input to ASCII example">Reset ASCII</button>
     </div>
     <form id="inputContainer">
       <textarea id="input" name="input" name="Text input">
@@ -107,35 +109,50 @@
                D  o  n  '  t     E  v  e  r     G  i  v  e     U  p  !</textarea>
     </form>
     <details open>
-      <summary>Options<button class="reset">Reset</button></summary>
+      <summary class="sectionButtonBox">
+        <span class="sectionLabel">Options</span>
+        <button class="reset" id="resetOptionsEssay" title="Reset options to essay defaults">Reset Essay</button>
+        <button class="reset" id="resetOptionsASCII" title="Reset options to ASCII defaults">Reset ASCII</button>
+      </summary>
       <form id="optionsContainer">
         <fieldset>
           <legend>Page</legend>
           <div class="option">
-            <label for="charsOnLine" title="Characters on a line on your typewriter, 65 with 1in margin, 0.1in characters, and 8.5in wide paper">Characters on a line</label>
-            <input type="number" id="charsOnLine" name="charsOnLine" value="85" min="1" title="Characters on a line on your typewriter, 85 with 10 characters per inch and 8.5in wide paper">
+            <label for="charsOnLine"
+              title="Characters on a line on your typewriter, 65 with 1in margin, 0.1in characters, and 8.5in wide paper">Characters
+              on a line</label>
+            <input type="number" id="charsOnLine" name="charsOnLine" value="85" min="1"
+              title="Characters on a line on your typewriter, 85 with 10 characters per inch and 8.5in wide paper">
           </div>
           <div class="option">
-            <label for="linesOnPage" title="Lines on a page, 54 with 1in margins and 11in tall paper">Lines on a page</label>
-            <input type="number" id="linesOnPage" name="linesOnPage" value="66" min="1" title="Lines on a page, 66 with 6 lines per inch and 11in tall paper">
+            <label for="linesOnPage" title="Lines on a page, 54 with 1in margins and 11in tall paper">Lines on a
+              page</label>
+            <input type="number" id="linesOnPage" name="linesOnPage" value="66" min="1"
+              title="Lines on a page, 66 with 6 lines per inch and 11in tall paper">
           </div>
           <div class="option">
-            <label for="marginLines" title="Top and bottom margin in lines, 6 with 1in margins and 11in tall paper">Top/bottom margin</label>
-            <input type="number" id="marginLines" name="marginLines" value="0" min="0" title="Top and bottom margin in lines, 6 with 1in margins and 11in tall paper">
+            <label for="marginLines"
+              title="Top and bottom margin in lines, 6 with 1in margins and 11in tall paper">Top/bottom margin</label>
+            <input type="number" id="marginLines" name="marginLines" value="0" min="0"
+              title="Top and bottom margin in lines, 6 with 1in margins and 11in tall paper">
           </div>
           <div class="option">
-            <label for="marginChars" title="Side margin in characters, 10 with 1in margins and 8.5in wide paper">Side margin</label>
-            <input type="number" id="marginChars" name="marginChars" value="0" min="0" title="Side margin in characters, 10 with 1in margins and 8.5in wide paper">
+            <label for="marginChars" title="Side margin in characters, 10 with 1in margins and 8.5in wide paper">Side
+              margin</label>
+            <input type="number" id="marginChars" name="marginChars" value="0" min="0"
+              title="Side margin in characters, 10 with 1in margins and 8.5in wide paper">
           </div>
         </fieldset>
         <fieldset>
           <legend>
             <label for="columns" title="Split into columns">Columns</label>
-            <input type="number" class="smallWidth" id="columns" name="columns" value="1" min="1" title="Split into columns">
+            <input type="number" class="smallWidth" id="columns" name="columns" value="1" min="1"
+              title="Split into columns">
           </legend>
           <div class="option">
             <label for="columnGap" class="disabled" title="Characters between columns">Column Gap</label>
-            <input type="number" class="disabled" class="smallWidth" id="columnGap" name="columnGap" value="0" min="0" title="Characters between columns">
+            <input type="number" class="disabled" class="smallWidth" id="columnGap" name="columnGap" value="0" min="0"
+              title="Characters between columns">
           </div>
         </fieldset>
         <fieldset>
@@ -144,8 +161,10 @@
             <label for="wordBreak" title="Break words when split over a line">Word Break</label>
           </legend>
           <div class="option">
-            <label for="charsToHyphen" class="disabled" title="Min number of characters that must be on each line for a word to split">Characters to break</label>
-            <input type="number" class="disabled smallWidth" id="charsToHyphen" name="charsToHyphen" value="3" min="1" title="Min number of characters that must be on each line for a word to split">
+            <label for="charsToHyphen" class="disabled"
+              title="Min number of characters that must be on each line for a word to split">Characters to break</label>
+            <input type="number" class="disabled smallWidth" id="charsToHyphen" name="charsToHyphen" value="3" min="1"
+              title="Min number of characters that must be on each line for a word to split">
           </div>
           <div class="option checkbox">
             <input class="disabled" type="checkbox" id="addHyphen" name="addHyphen" title="Add hyphen" checked>
@@ -153,11 +172,14 @@
           </div>
         </fieldset>
         <fieldset>
-          <legend><label for="file" title="Background image for the page, to draw ascii art over">Background Image</label></legend>
-          <input type="file" id="file" name="file" value="" title="Background image for the page, to draw ascii art over">
+          <legend><label for="file" title="Background image for the page, to draw ascii art over">Background
+              Image</label></legend>
+          <input type="file" id="file" name="file" value=""
+            title="Background image for the page, to draw ascii art over">
           <div class="option">
             <label for="transparency" class="disabled" title="Transparency of background image">Transparency</label>
-            <input type="number" class="smallWidth disabled" id="transparency" name="transparency" value="0" min="0" max="100" title="Transparency of background image">
+            <input type="number" class="smallWidth disabled" id="transparency" name="transparency" value="0" min="0"
+              max="100" title="Transparency of background image">
           </div>
         </fieldset>
         <fieldset>
@@ -171,8 +193,10 @@
             <label for="showSpaces" title="Show spaces on hover">Show spaces on hover</label>
           </div>
           <div class="option checkbox">
-            <input type="checkbox" id="renderChar" name="renderChar" title="Render the page with each character entered">
-            <label for="renderChar" title="Render the page with each character entered">Render on character input</label>
+            <input type="checkbox" id="renderChar" name="renderChar"
+              title="Render the page with each character entered">
+            <label for="renderChar" title="Render the page with each character entered">Render on character
+              input</label>
           </div>
         </fieldset>
       </form>
