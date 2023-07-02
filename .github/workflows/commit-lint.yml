@@ -1,0 +1,8 @@
+name: Commit Lint
+on: push
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: npx eslint .
