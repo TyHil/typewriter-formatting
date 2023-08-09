@@ -1,53 +1,5 @@
-html, body {
-  height: 100%;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-
-
-/* Accessibility */
-
-@media screen and (prefers-reduced-motion: reduce), (update: slow) {
-  * {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
-  }
-}
-
-*:focus-visible {
-  outline: 3px solid var(--light2);
-}
-
-
-
 /* Dark Mode */
 
-:root { /*Gradient color average: #128A74 10 midpoints first choice*/
-  --light0: #E9F4F2; /*#fff*/
-  --light1: #CCD7D5; /*#dfdfdf*/
-  --light2: #AFBAB8; /*#bfbfbf*/
-  --dark3: #596462; /*#606060*/
-  --dark2: #3C4745; /*#404040*/
-  --dark1: #1F2A28; /*#202020*/
-  --dark0: #020D0B; /*#000*/
-  --dark0rgb: 2, 13, 11;
-  --primary: linear-gradient(90deg, #128e5a, #12858e);
-  --secondary: linear-gradient(90deg, #32ae7a, #32a5ae);
-  --scale: 1;
-}
-body {
-  scrollbar-color: rgba(255, 255, 255, 0.24) var(--dark0);
-  accent-color: #128A74;
-}
-::-webkit-scrollbar-thumb {
-  background-color: rgba(255, 255, 255, 0.24);
-}
-::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(255, 255, 255, 0.28);
-}
 textarea::-webkit-scrollbar-thumb {
   background-color: rgba(0, 0, 0, 0.24);
 }
@@ -82,18 +34,6 @@ input.disabled {
 /* Light Mode */
 
 @media (prefers-color-scheme: light) {
-  :root {
-    --light0: #020D0B; /*#000*/
-    --light1: #1F2A28; /*#202020*/
-    --light2: #2D3836; /*#303030*/
-    --dark3: #93A3A0; /*#9f9f9f*/
-    --dark2: #AFBAB8; /*#bfbfbf*/
-    --dark1: #CCD7D5; /*#dfdfdf*/
-    --dark0: #E9F4F2; /*#fff*/
-    --dark0rgb: 233, 244, 242;
-    --primary: linear-gradient(90deg, #1bd285, #1bc4d2);
-    --secondary: linear-gradient(90deg, #00b265, #00a4b2);
-  }
   body {
     scrollbar-color: rgba(0, 0, 0, 0.24) var(--dark0);
     accent-color: #1BCBAC;
@@ -130,35 +70,11 @@ input.disabled {
 
 
 
-/* Scrollbar */
-
-body {
-  scrollbar-width: thin;
-}
-::-webkit-scrollbar {
-  width: 0.5rem;
-  height: 0.5rem;
-}
-::-webkit-scrollbar-corner {
-  background: rgba(0, 0, 0, 0);
-}
-::-webkit-scrollbar-track {
-  background-color: var(--dark0);
-  border-radius: 0.25rem;
-}
-::-webkit-scrollbar-thumb {
-  border-radius: 0.25rem;
-}
-
-
-
 /* Body */
 
 body {
   display: flex;
   justify-content: center;
-  background-color: var(--dark0);
-  color: var(--light0);
 }
 
 
@@ -190,11 +106,8 @@ section {
 #title {
   text-align: center;
 }
-#title, #byLine {
-  margin: 0;
-}
 #byLine {
-  height: 1.6rem;
+  height: 3rem;
   display: inline-block;
   padding: 0.8rem 1rem 0.6rem 1rem;
   border-radius: 1.5rem;
@@ -227,6 +140,7 @@ textarea {
   padding: 0.15rem 0.25rem;
   border-radius: 0.25rem;
   scrollbar-color: rgba(0, 0, 0, 0.24) var(--dark0);
+  font-family: monospace;
 }
 #resetContainer {
   margin-bottom: 0.2rem;
@@ -318,6 +232,9 @@ input[type=file] {
 
 /* Main */
 
+:root {
+  --scale: 1;
+}
 main {
   flex: 999 1;
   max-width: calc(var(--width) + calc(2 * var(--paddingLR)) + calc(2 * 0.25rem) + calc(2 * 2px));
@@ -360,6 +277,7 @@ main {
   transform: scale(1, var(--scale));
   background: linear-gradient(0deg, rgba(var(--dark0rgb), var(--transparency)), rgba(var(--dark0rgb), var(--transparency))), var(--file);
   background-size: 100% 100%;
+  box-sizing: content-box;
 }
 .spaceBlock {
   height: 1em;
