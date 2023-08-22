@@ -27,22 +27,22 @@
   <meta name="twitter:domain" content="tylergordonhill.com" />
 
   <!-- Link Tags -->
-  <link rel="icon" href="/typewriter-formatting/tabicon.png" />
+  <link rel="icon" href="typewriter-formatting/tabicon.png" />
   <link href="https://tylergordonhill.com/global.css" rel="stylesheet" type="text/css" />
   <link href="typewriter-formatting/style.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
   <section>
-    <div id="header">
+    <header>
       <div id="headerBg"></div>
       <h2 id="title">Typewriter Formatting</h2>
       <a id="byLine" href="/">Tyler Gordon Hill</a>
-    </div>
+    </header>
     <div id="resetContainer" class="sectionButtonBox">
       <label for="input" title="Text input" class="sectionLabel">Text input</label>
-      <button class="reset" id="resetInputEssay" title="Reset text input to essay example">Reset Essay</button>
-      <button class="reset" id="resetInputASCII" title="Reset text input to ASCII example">Reset ASCII</button>
+      <button class="small" id="resetInputEssay" title="Reset text input to essay example">Reset Essay</button>
+      <button class="small" id="resetInputASCII" title="Reset text input to ASCII example">Reset ASCII</button>
     </div>
     <form id="inputContainer">
       <textarea id="input" name="input" name="Text input">
@@ -112,59 +112,59 @@
     <details open>
       <summary class="sectionButtonBox">
         <span class="sectionLabel">Options</span>
-        <button class="reset" id="resetOptionsEssay" title="Reset options to essay defaults">Reset Essay</button>
-        <button class="reset" id="resetOptionsASCII" title="Reset options to ASCII defaults">Reset ASCII</button>
+        <button class="small" id="resetOptionsEssay" title="Reset options to essay defaults">Reset Essay</button>
+        <button class="small" id="resetOptionsASCII" title="Reset options to ASCII defaults">Reset ASCII</button>
       </summary>
       <form id="optionsContainer">
         <fieldset>
           <legend>Page</legend>
-          <div class="option">
+          <div class="smallInputBox">
             <label for="charsOnLine"
               title="Characters on a line on your typewriter, 65 with 1in margin, 0.1in characters, and 8.5in wide paper">Characters
               on a line</label>
             <input type="number" id="charsOnLine" name="charsOnLine" value="85" min="1"
-              title="Characters on a line on your typewriter, 85 with 10 characters per inch and 8.5in wide paper">
+              title="Characters on a line on your typewriter, 85 with 10 characters per inch and 8.5in wide paper" class="small">
           </div>
-          <div class="option">
+          <div class="smallInputBox">
             <label for="linesOnPage" title="Lines on a page, 54 with 1in margins and 11in tall paper">Lines on a
               page</label>
             <input type="number" id="linesOnPage" name="linesOnPage" value="66" min="1"
-              title="Lines on a page, 66 with 6 lines per inch and 11in tall paper">
+              title="Lines on a page, 66 with 6 lines per inch and 11in tall paper" class="small">
           </div>
-          <div class="option">
+          <div class="smallInputBox">
             <label for="marginLines"
               title="Top and bottom margin in lines, 6 with 1in margins and 11in tall paper">Top/bottom margin</label>
             <input type="number" id="marginLines" name="marginLines" value="0" min="0"
-              title="Top and bottom margin in lines, 6 with 1in margins and 11in tall paper">
+              title="Top and bottom margin in lines, 6 with 1in margins and 11in tall paper" class="small">
           </div>
-          <div class="option">
+          <div class="smallInputBox">
             <label for="marginChars" title="Side margin in characters, 10 with 1in margins and 8.5in wide paper">Side
               margin</label>
             <input type="number" id="marginChars" name="marginChars" value="0" min="0"
-              title="Side margin in characters, 10 with 1in margins and 8.5in wide paper">
+              title="Side margin in characters, 10 with 1in margins and 8.5in wide paper" class="small">
           </div>
         </fieldset>
         <fieldset>
           <legend>
             <label for="columns" title="Split into columns">Columns</label>
-            <input type="number" class="smallWidth" id="columns" name="columns" value="1" min="1"
+            <input type="number" class="small smallWidth" id="columns" name="columns" value="1" min="1"
               title="Split into columns">
           </legend>
-          <div class="option">
+          <div class="smallInputBox">
             <label for="columnGap" class="disabled" title="Characters between columns">Column Gap</label>
-            <input type="number" class="disabled" class="smallWidth" id="columnGap" name="columnGap" value="0" min="0"
+            <input type="number" class="small disabled smallWidth" id="columnGap" name="columnGap" value="0" min="0"
               title="Characters between columns">
           </div>
         </fieldset>
         <fieldset>
           <legend>
-            <input type="checkbox" id="wordBreak" name="wordBreak" title="Break words when split over a line">
+            <input type="checkbox" id="wordBreak" name="wordBreak" title="Break words when split over a line" class="small">
             <label for="wordBreak" title="Break words when split over a line">Word Break</label>
           </legend>
-          <div class="option">
+          <div class="smallInputBox">
             <label for="charsToHyphen" class="disabled"
               title="Min number of characters that must be on each line for a word to split">Characters to break</label>
-            <input type="number" class="disabled smallWidth" id="charsToHyphen" name="charsToHyphen" value="3" min="1"
+            <input type="number" class="small disabled smallWidth" id="charsToHyphen" name="charsToHyphen" value="3" min="1"
               title="Min number of characters that must be on each line for a word to split">
           </div>
           <div class="option checkbox">
@@ -177,9 +177,9 @@
               Image</label></legend>
           <input type="file" id="file" name="file" value=""
             title="Background image for the page, to draw ascii art over">
-          <div class="option">
+          <div class="smallInputBox">
             <label for="transparency" class="disabled" title="Transparency of background image">Transparency</label>
-            <input type="number" class="smallWidth disabled" id="transparency" name="transparency" value="0" min="0"
+            <input type="number" class="small smallWidth disabled" id="transparency" name="transparency" value="0" min="0"
               max="100" title="Transparency of background image">
           </div>
         </fieldset>
@@ -189,9 +189,9 @@
             <input type="checkbox" id="center" name="center" title="Center each line">
             <label for="center" title="Center each line">Center Text</label>
           </div>
-          <div class="option">
+          <div class="smallInputBox">
             <label for="lineSpacing" title="Space between lines">Line Spacing</label>
-            <input type="number" class="smallWidth" id="lineSpacing" name="lineSpacing" value="1" min="1"
+            <input type="number" class="small smallWidth" id="lineSpacing" name="lineSpacing" value="1" min="1"
               title="Space between lines">
           </div>
           <div class="option checkbox">

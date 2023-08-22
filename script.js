@@ -1,3 +1,18 @@
+/* Tab Icon */
+
+const tabicon = document.querySelector('link[rel="icon"]');
+window
+  .matchMedia('(prefers-color-scheme: light)')
+  .addEventListener('change', function(event) {
+    if (event.matches) {
+      tabicon.href = 'typewriter-formatting/tabicon-light.png';
+    } else {
+      tabicon.href = 'typewriter-formatting/tabicon.png';
+    }
+  });
+
+
+
 /* Constants */
 
 const main = document.getElementsByTagName('main')[0];
@@ -60,17 +75,6 @@ transparencyUpdate();
 
 /* Listeners */
 
-const faviconEl = document.querySelector('link[rel="icon"]');
-window
-  .matchMedia('(prefers-color-scheme: light)')
-  .addEventListener('change', function(event) {
-    if (event.matches) {
-      faviconEl.href = '/typewriter-formatting/tabicon-light.png';
-    } else {
-      faviconEl.href = '/typewriter-formatting/tabicon.png';
-    }
-  });
-
 input.addEventListener('change', function() {
   localStorage.setItem('input', this.value);
   if (!renderChar.checked) {
@@ -110,6 +114,7 @@ function paddingCalc() {
     '--paddingLR',
     marginChars.value + 'ch'
   );
+  console.log(charsOnLine.value, marginChars.value, charsOnLineWithMargin)
   document.documentElement.style.setProperty(
     '--width',
     charsOnLineWithMargin + 'ch'
