@@ -1,15 +1,9 @@
 /* Tab Icon */
 
-const tabicon = document.querySelector('link[rel="icon"]');
-window
-  .matchMedia('(prefers-color-scheme: light)')
-  .addEventListener('change', function(event) {
-    if (event.matches) {
-      tabicon.href = 'typewriter-formatting/tabicon-light.png';
-    } else {
-      tabicon.href = 'typewriter-formatting/tabicon.png';
-    }
-  });
+if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+  document.querySelector('link[rel="icon"]').href = 'typewriter-formatting/tabicon-light.png';
+}
+
 
 
 
