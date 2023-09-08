@@ -303,7 +303,8 @@ summary {
   font-size: 1.1em;
 }
 .sectionButtonBox {
-  display: flex;
+  width: fit-content;
+  display: inline-flex;
   gap: 0.5rem;
 }
 .sectionLabel {
