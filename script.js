@@ -638,12 +638,6 @@ function addWordToString(text, word, currentInfo) {
 }
 
 function generateSingle(input, layer) {
-  //remove past pages
-  /*const pages = document.getElementsByClassName('page');
-  while (pages.length) {
-    pages[0].remove();
-  }*/
-
   let currentInfo = new CurrentInfo(layer);
   if (input === '') {
     //add blank page
@@ -701,13 +695,17 @@ function generateSingle(input, layer) {
       currentInfo.line % (parseInt(columns.value) * linesOnPageWithMargin),
       linesOnPageWithMargin
     ); //basically divide currentInfo.line by columns
-  document.getElementById('lineCount').innerText =
-    currentInfo.line.toString() + ' line' + (currentInfo.line !== 1 ? 's' : '');
+  const lineCount = document.getElementById('lineCount');
+  if (lineCount.innerText === '' || currentInfo.line > parseInt(lineCount.innerText)) {
+    lineCount.innerText = currentInfo.line.toString() + ' line' + (currentInfo.line !== 1 ? 's' : '');
+  }
 
   //pages
   const numPages = Math.ceil(currentInfo.line / linesOnPageWithMargin);
-  document.getElementById('pageCount').innerText =
-    numPages.toString() + ' page' + (numPages !== 1 ? 's' : '');
+  const pageCount = document.getElementById('pageCount');
+  if (pageCount.innerText === '' || numPages > parseInt(pageCount.innerText)) {
+    pageCount.innerText = numPages.toString() + ' page' + (numPages !== 1 ? 's' : '');
+  }
 }
 
 function generate() {
