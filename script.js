@@ -10,30 +10,40 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matc
 /* Constants */
 
 const main = document.getElementsByTagName('main')[0];
-const inputs = document.getElementsByClassName('input');
-const charsOnLine = document.getElementById('charsOnLine');
-const linesOnPage = document.getElementById('linesOnPage');
-const marginChars = document.getElementById('marginChars');
-const marginLines = document.getElementById('marginLines');
-const columns = document.getElementById('columns');
-const columnGap = document.getElementById('columnGap');
-const wordBreak = document.getElementById('wordBreak');
-const charsToHyphen = document.getElementById('charsToHyphen');
-const addHyphen = document.getElementById('addHyphen');
+
 const resetInputEssay = document.getElementById('resetInputEssay');
 const resetInputASCII = document.getElementById('resetInputASCII');
 const addLayer = document.getElementById('addLayer');
 const deleteLayer = document.getElementById('deleteLayer');
 const prevLayer = document.getElementById('prevLayer');
 const nextLayer = document.getElementById('nextLayer');
+
+const inputs = document.getElementsByClassName('input');
+
 const resetOptionsEssay = document.getElementById('resetOptionsEssay');
 const resetOptionsASCII = document.getElementById('resetOptionsASCII');
+
+const charsOnLine = document.getElementById('charsOnLine');
+const linesOnPage = document.getElementById('linesOnPage');
+const marginChars = document.getElementById('marginChars');
+const marginLines = document.getElementById('marginLines');
+
+const columns = document.getElementById('columns');
+const columnGap = document.getElementById('columnGap');
+
+const wordBreak = document.getElementById('wordBreak');
+const charsToHyphen = document.getElementById('charsToHyphen');
+const addHyphen = document.getElementById('addHyphen');
+
 const file = document.getElementById('file');
 const transparency = document.getElementById('transparency');
+
 const center = document.getElementById('center');
 const lineSpacing = document.getElementById('lineSpacing');
 const showSpaces = document.getElementById('showSpaces');
 const renderChar = document.getElementById('renderChar');
+const singleLayer = document.getElementById('singleLayer');
+
 const names = [
   'charsOnLine',
   'linesOnPage',
@@ -50,6 +60,7 @@ const names = [
   'lineSpacing',
   'showSpaces',
   'renderChar',
+  'singleLayer',
 ];
 let charsOnLineWithMargin;
 let linesOnPageWithMargin;
@@ -92,24 +103,6 @@ wordBreakDisabled();
 transparencyUpdate();
 
 /* Listeners */
-
-function addInputListeners(input, i) {
-  input.addEventListener('change', function() {
-    localStorage.setItem(inputName(i), this.value);
-    if (!renderChar.checked) {
-      generate();
-    }
-  });
-  input.addEventListener('input', function() {
-    if (renderChar.checked) {
-      generate();
-    }
-  });
-}
-
-for (let i = 0; i < inputs.length; i++) {
-  addInputListeners(inputs[i], i);
-}
 
 function resetInput() {
   localStorage.setItem('input', inputs[0].value);
@@ -193,6 +186,9 @@ prevLayer.addEventListener('click', function() {
   inputs[selectedLayer].style.display = 'none';
   inputs[selectedLayer - 1].style.display = 'block';
   layerButtons();
+  if (singleLayer.checked) {
+    generate();
+  }
 });
 
 nextLayer.addEventListener('click', function() {
@@ -200,6 +196,60 @@ nextLayer.addEventListener('click', function() {
   inputs[selectedLayer].style.display = 'none';
   inputs[selectedLayer + 1].style.display = 'block';
   layerButtons();
+  if (singleLayer.checked) {
+    generate();
+  }
+});
+
+function addInputListeners(input, i) {
+  input.addEventListener('change', function() {
+    localStorage.setItem(inputName(i), this.value);
+    if (!renderChar.checked) {
+      generate();
+    }
+  });
+  input.addEventListener('input', function() {
+    if (renderChar.checked) {
+      generate();
+    }
+  });
+}
+
+for (let i = 0; i < inputs.length; i++) {
+  addInputListeners(inputs[i], i);
+}
+
+function resetOptions() {
+  for (const element of names) {
+    const domElement = document.getElementById(element);
+    if (domElement.type === 'checkbox') {
+      localStorage.setItem(element, domElement.checked);
+    } else {
+      localStorage.setItem(element, domElement.value);
+    }
+  }
+  document.documentElement.style.setProperty('--file', '');
+  columnsDisabled();
+  wordBreakDisabled();
+  paddingCalc();
+  transparencyUpdate();
+  generate();
+}
+
+resetOptionsEssay.addEventListener('click', function() {
+  document.getElementById('optionsContainer').reset();
+  marginChars.value = 10;
+  marginLines.value = 6;
+  columns.value = 1;
+  columnGap.value = 0;
+  wordBreak.checked = true;
+  center.checked = false;
+  resetOptions();
+});
+
+resetOptionsASCII.addEventListener('click', function() {
+  document.getElementById('optionsContainer').reset();
+  resetOptions();
 });
 
 function paddingCalc() {
@@ -409,37 +459,9 @@ renderChar.addEventListener('click', function() {
   localStorage.setItem('renderChar', this.checked);
 });
 
-function resetOptions() {
-  for (const element of names) {
-    const domElement = document.getElementById(element);
-    if (domElement.type === 'checkbox') {
-      localStorage.setItem(element, domElement.checked);
-    } else {
-      localStorage.setItem(element, domElement.value);
-    }
-  }
-  document.documentElement.style.setProperty('--file', '');
-  columnsDisabled();
-  wordBreakDisabled();
-  paddingCalc();
-  transparencyUpdate();
+singleLayer.addEventListener('click', function() {
+  localStorage.setItem('singleLayer', this.checked);
   generate();
-}
-
-resetOptionsEssay.addEventListener('click', function() {
-  document.getElementById('optionsContainer').reset();
-  marginChars.value = 10;
-  marginLines.value = 6;
-  columns.value = 1;
-  columnGap.value = 0;
-  wordBreak.checked = true;
-  center.checked = false;
-  resetOptions();
-});
-
-resetOptionsASCII.addEventListener('click', function() {
-  document.getElementById('optionsContainer').reset();
-  resetOptions();
 });
 
 /*Generator*/
@@ -714,8 +736,13 @@ function generate() {
     pages[0].remove();
   }
 
-  for (let i = 0; i < inputs.length; i++) {
-    generateSingle(inputs[i].value, i);
+  if (singleLayer.checked) {
+    const selectedLayer = getSelectedLayer();
+    generateSingle(inputs[selectedLayer].value, selectedLayer);
+  } else {
+    for (let i = 0; i < inputs.length; i++) {
+      generateSingle(inputs[i].value, i);
+    }
   }
 }
 
