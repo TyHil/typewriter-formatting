@@ -298,6 +298,9 @@ textarea {
 #resetContainer {
   margin-bottom: 0.2rem;
 }
+.hidden {
+  display: none;
+}
 summary {
   cursor: pointer;
   font-size: 1.1em;
@@ -305,6 +308,7 @@ summary {
 .sectionButtonBox {
   width: fit-content;
   display: inline-flex;
+  flex-wrap: wrap;
   gap: 0.5rem;
 }
 .sectionLabel {
@@ -379,6 +383,10 @@ main {
 }
 .line {
   display: inline;
+  position: relative;
+}
+.layer {
+  position: absolute;
 }
 .page {
   width: var(--width);

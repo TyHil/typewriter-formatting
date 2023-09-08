@@ -10,7 +10,7 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matc
 /* Constants */
 
 const main = document.getElementsByTagName('main')[0];
-const input = document.getElementById('input');
+const inputs = document.getElementsByClassName('input');
 const charsOnLine = document.getElementById('charsOnLine');
 const linesOnPage = document.getElementById('linesOnPage');
 const marginChars = document.getElementById('marginChars');
@@ -22,6 +22,10 @@ const charsToHyphen = document.getElementById('charsToHyphen');
 const addHyphen = document.getElementById('addHyphen');
 const resetInputEssay = document.getElementById('resetInputEssay');
 const resetInputASCII = document.getElementById('resetInputASCII');
+const addLayer = document.getElementById('addLayer');
+const deleteLayer = document.getElementById('deleteLayer');
+const prevLayer = document.getElementById('prevLayer');
+const nextLayer = document.getElementById('nextLayer');
 const resetOptionsEssay = document.getElementById('resetOptionsEssay');
 const resetOptionsASCII = document.getElementById('resetOptionsASCII');
 const file = document.getElementById('file');
@@ -31,7 +35,6 @@ const lineSpacing = document.getElementById('lineSpacing');
 const showSpaces = document.getElementById('showSpaces');
 const renderChar = document.getElementById('renderChar');
 const names = [
-  'input',
   'charsOnLine',
   'linesOnPage',
   'marginChars',
@@ -51,9 +54,30 @@ const names = [
 let charsOnLineWithMargin;
 let linesOnPageWithMargin;
 
+//Input values
+function inputName(i) {
+  if (i === 0) {
+    return 'input';
+  }
+  return 'input' + i.toString();
+}
+let i = 0;
+let value = localStorage.getItem(inputName(0));
+while (value !== null && typeof value !== 'undefined') {
+  if (inputs.length <= i) {
+    const newInput = document.createElement('textarea');
+    newInput.classList.add('input');
+    newInput.style.display = 'none';
+    inputs[0].parentElement.append(newInput);
+  }
+  inputs[i].value = value;
+  i++;
+  value = localStorage.getItem(inputName(i));
+}
+
 for (const element of names) {
   const old = localStorage.getItem(element);
-  if (old !== null && old != 'undefined') {
+  if (old !== null && typeof old !== undefined) {
     const domElement = document.getElementById(element);
     if (domElement.type === 'checkbox') {
       domElement.checked = old === 'true';
@@ -69,25 +93,39 @@ transparencyUpdate();
 
 /* Listeners */
 
-input.addEventListener('change', function() {
-  localStorage.setItem('input', this.value);
-  if (!renderChar.checked) {
-    generate();
-  }
-});
-input.addEventListener('input', function() {
-  if (renderChar.checked) {
-    generate();
-  }
-});
+function addInputListeners(input, i) {
+  input.addEventListener('change', function() {
+    localStorage.setItem(inputName(i), this.value);
+    if (!renderChar.checked) {
+      generate();
+    }
+  });
+  input.addEventListener('input', function() {
+    if (renderChar.checked) {
+      generate();
+    }
+  });
+}
+
+for (let i = 0; i < inputs.length; i++) {
+  addInputListeners(inputs[i], i);
+}
 
 function resetInput() {
-  localStorage.setItem('input', input.value);
+  localStorage.setItem('input', inputs[0].value);
+  inputs[0].style.display = 'block';
+  let i = inputs.length - 1;
+  while (inputs.length > 1) {
+    localStorage.removeItem(inputName(i));
+    inputs[i].remove();
+    i = inputs.length - 1;
+  }
+  layerButtons();
   generate();
 }
 
 resetInputEssay.addEventListener('click', function() {
-  input.value =
+  inputs[0].value =
     '     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus pulvinar ante lectus, in efficitur turpis cursus eget. Nullam ac sem semper, pharetra erat at, elementum arcu. Maecenas neque nisl, cursus eget leo ut, ullamcorper viverra quam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel consectetur felis. Nullam dictum pellentesque arcu, non porta massa. Maecenas congue feugiat ipsum, non hendrerit odio rhoncus vitae. Nulla ut imperdiet eros. Donec arcu sapien, egestas nec scelerisque ut, iaculis eget dui. Mauris iaculis lacus nec libero imperdiet, non scelerisque purus sollicitudin. Vivamus non velit eu lectus lobortis ornare at in est. Curabitur quis elit eleifend, ultricies dolor semper, dapibus massa. Aliquam congue semper sem, vitae porta arcu consectetur euismod. Pellentesque varius odio vitae leo vulputate sodales.\n     Praesent lobortis, massa nec tristique venenatis, felis magna fermentum nunc, eget accumsan dui turpis vel odio. Pellentesque tincidunt, magna id finibus suscipit, turpis nibh accumsan eros, lacinia efficitur nunc augue et mi. Ut blandit sed elit sit amet mollis. Donec vel fringilla orci, sit amet feugiat sapien. Maecenas egestas posuere fermentum. Quisque tempor eu tortor et fermentum. Maecenas molestie metus interdum leo dictum aliquam. Nulla feugiat a quam vitae rhoncus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer sapien diam, pharetra vitae aliquet at, pretium et odio. Nam imperdiet ipsum diam, sit amet dapibus sem condimentum ac.\n     Nulla tincidunt metus at leo pretium, maximus rhoncus neque finibus. Praesent tellus augue, rhoncus et vestibulum in, vulputate ut est. In tristique nibh sed libero pulvinar imperdiet. Cras varius nunc vel scelerisque ullamcorper. Aenean pulvinar varius molestie. Morbi vehicula fringilla elit, egestas elementum quam commodo rhoncus. Cras rhoncus fringilla augue, ut malesuada turpis semper sed. Sed venenatis malesuada commodo. Praesent mattis sem vitae nibh semper, vitae fringilla quam dictum. Praesent ultricies, urna quis pharetra congue, ipsum erat auctor erat, in tempor risus neque in massa. Aliquam tellus metus, blandit vitae fringilla ac, venenatis at lacus.\n     Aliquam erat volutpat. Sed arcu nisi, lobortis sed est cursus, malesuada convallis odio. Praesent faucibus enim et leo accumsan, et facilisis eros eleifend. Donec sit amet dui nec libero pharetra condimentum eget vitae nunc. Cras quis augue eu arcu molestie fringilla in in risus. Pellentesque ullamcorper, ante et sollicitudin pulvinar, ante augue scelerisque lectus, et rutrum dui quam a nunc. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam sodales velit vel magna semper lobortis. In ut eros viverra, finibus eros vel, ornare leo. Morbi pretium facilisis facilisis. Aenean posuere lorem eget libero hendrerit interdum. Nunc tristique ex quis augue rhoncus hendrerit. Vivamus ornare dui vel turpis elementum efficitur. Nam sit amet porta enim.\n     Nunc nec luctus magna, interdum scelerisque urna. Pellentesque ullamcorper nulla augue, a consequat dolor rutrum sed. Aenean ultrices lectus quis lobortis laoreet. Sed a ex a dui facilisis vestibulum in nec orci. Donec id elit eu augue vehicula aliquet ut non mi. Etiam volutpat turpis quis sollicitudin volutpat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nunc sodales mauris vel arcu sollicitudin efficitur. Nunc id vestibulum nisl. Maecenas nec turpis lacinia, porttitor leo euismod, congue dui. Vestibulum mollis quam in nisl gravida eleifend. Curabitur pretium porttitor vulputate. Vivamus laoreet volutpat nisi nec semper. Nam a pretium nunc.\n     Curabitur lacus sem, imperdiet nec ornare ut, iaculis nec magna. Nullam sodales orci sem, ac dignissim mauris dapibus a. Phasellus tempus vulputate nibh, sollicitudin facilisis est sagittis non. Etiam lacinia porttitor diam ac porta. Vestibulum id congue libero. Donec in feugiat massa. In a aliquet sapien. Etiam in elementum lectus.\n     Sed a fermentum dolor. Donec id augue in magna lobortis iaculis a malesuada orci. Phasellus finibus congue aliquet. Sed vitae velit gravida, consequat sapien non, faucibus neque. Morbi iaculis vehicula consectetur. Nunc eu ornare lorem, eu porta leo. Aenean volutpat metus massa, in tincidunt lorem tempus nec. Phasellus fringilla velit in justo cursus, nec suscipit libero imperdiet. Curabitur malesuada placerat sodales. Vestibulum vitae ipsum id neque consectetur pulvinar. Integer nec condimentum ipsum. Mauris et condimentum justo. Etiam eget mi nec tellus vestibulum pulvinar.\n     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque at placerat lectus, vitae sagittis lorem. Sed placerat ac purus mattis interdum. Aenean blandit tempor lacinia. Sed posuere quam eget viverra commodo. Vestibulum luctus felis ut quam elementum mollis. Fusce hendrerit ornare neque, et efficitur odio condimentum eu. Nullam nec mauris commodo, venenatis velit in, facilisis nulla. Aenean vitae magna sit amet lacus iaculis molestie. Phasellus blandit est eget volutpat lobortis.\n     Suspendisse consequat suscipit purus, quis vestibulum diam finibus eget. Nullam eros dolor, semper non dapibus et, imperdiet non urna. Integer quis arcu non velit pellentesque condimentum at at arcu. Etiam dictum cursus justo, et placerat purus sagittis quis. Etiam blandit, lectus non fringilla egestas, neque nunc placerat dui, ac rutrum metus lectus ac dolor. Aenean porta egestas ultricies. Nulla pellentesque ultricies urna vel pulvinar. Morbi dignissim malesuada lacinia.\n     In sed suscipit mi. Vivamus elit nulla, aliquam nec nunc quis, rutrum posuere nisl. Praesent aliquam elit sed mauris placerat, quis ornare nunc facilisis. Suspendisse fringilla sapien in nisl molestie venenatis. Maecenas auctor magna non malesuada vulputate. Nam lobortis dictum mauris quis iaculis. Etiam pharetra hendrerit sem, at sagittis nunc vehicula vitae. Maecenas sodales tortor velit, aliquet fermentum dui sagittis quis. Curabitur cursus a ligula blandit molestie. Proin vitae massa ac turpis porttitor porta sed vel sapien. Maecenas tincidunt faucibus orci mollis volutpat. Fusce ac ligula a enim suscipit tempor. Donec eu magna placerat, varius mi sit amet, tristique neque. Nunc elit nisi, pharetra ut ex id, tincidunt accumsan mi. Duis dictum, lectus id dignissim dictum, lorem enim posuere eros, sit amet aliquam felis ante ac neque. Integer vehicula a leo egestas pretium.';
   resetInput();
 });
@@ -95,6 +133,74 @@ resetInputEssay.addEventListener('click', function() {
 resetInputASCII.addEventListener('click', function() {
   document.getElementById('inputContainer').reset();
   resetInput();
+});
+
+function getSelectedLayer() {
+  for (let i = 0; i < inputs.length; i++) {
+    if (inputs[i].style.display !== 'none') {
+      return i;
+    }
+  }
+  return null;
+}
+
+function layerButtons() {
+  if (inputs.length === 1) {
+    [deleteLayer, prevLayer, nextLayer].forEach((button) => button.style.display = 'none');
+  } else {
+    [deleteLayer, prevLayer, nextLayer].forEach((button) => button.style.display = 'block');
+    const selectedLayer = getSelectedLayer();
+    console.log(selectedLayer);
+    deleteLayer.innerText = 'Delete Layer ' + (selectedLayer + 1).toString();
+    if (selectedLayer === 0) {
+      deleteLayer.disabled = true;
+      prevLayer.disabled = true;
+    } else {
+      deleteLayer.disabled = false;
+      prevLayer.disabled = false;
+    }
+    if (selectedLayer === inputs.length - 1) {
+      nextLayer.disabled = true;
+    } else {
+      nextLayer.disabled = false;
+    }
+  }
+}
+layerButtons();
+
+addLayer.addEventListener('click', function() {
+  const newInput = document.createElement('textarea');
+  newInput.classList.add('input');
+  newInput.value = '';
+  addInputListeners(newInput, inputs.length);
+  for (let i = 0; i < inputs.length; i++) {
+    inputs[i].style.display = 'none';
+  }
+  inputs[0].parentElement.append(newInput);
+  layerButtons();
+});
+
+deleteLayer.addEventListener('click', function() {
+  const selectedLayer = getSelectedLayer();
+  localStorage.removeItem(inputName(selectedLayer));
+  inputs[selectedLayer].remove();
+  inputs[selectedLayer - 1].style.display = 'block';
+  layerButtons();
+  generate();
+});
+
+prevLayer.addEventListener('click', function() {
+  const selectedLayer = getSelectedLayer();
+  inputs[selectedLayer].style.display = 'none';
+  inputs[selectedLayer - 1].style.display = 'block';
+  layerButtons();
+});
+
+nextLayer.addEventListener('click', function() {
+  const selectedLayer = getSelectedLayer();
+  inputs[selectedLayer].style.display = 'none';
+  inputs[selectedLayer + 1].style.display = 'block';
+  layerButtons();
 });
 
 function paddingCalc() {
@@ -108,7 +214,6 @@ function paddingCalc() {
     '--paddingLR',
     marginChars.value + 'ch'
   );
-  console.log(charsOnLine.value, marginChars.value, charsOnLineWithMargin)
   document.documentElement.style.setProperty(
     '--width',
     charsOnLineWithMargin + 'ch'
@@ -341,10 +446,11 @@ resetOptionsASCII.addEventListener('click', function() {
 /*Generator*/
 
 class CurrentInfo {
-  constructor() {
+  constructor(layer) {
     this.line = 0;
     this.column = 0;
     this.columnWidths = this.#findColumnWidths(charsOnLineWithMargin);
+    this.layer = layer;
   }
   #findColumnWidths(characters) {
     const spaceToFill = characters - columnGap.value * (columns.value - 1);
@@ -407,21 +513,38 @@ function addStringToLine(line, text, currentInfo) {
   }
 }
 
-function createPage(pageNum) {
-  const page = document.createElement('div');
-  page.classList.add('page');
-  if (showSpaces.checked) {
-    page.classList.add('showSpaces');
+function createPage(pageNum, currentInfo) {
+  let page = document.getElementById('page' + pageNum.toString());
+  if (page === null) {
+    page = document.createElement('div');
+    page.classList.add('page');
+    if (showSpaces.checked) {
+      page.classList.add('showSpaces');
+    }
+    page.id = 'page' + pageNum.toString();
+    main.append(page);
   }
-  page.id = 'page' + pageNum.toString();
   return page;
 }
 
-function createLine(linePlacement) {
-  const line = document.createElement('div');
-  line.classList.add('line');
-  line.id = 'line' + linePlacement.toString();
-  return line;
+function createLine(page, linePlacement, currentInfo) {
+  let line = document.getElementById('line' + linePlacement.toString());
+  if (line === null) {
+    const br = document.createElement('br');
+    page.append(br);
+    line = document.createElement('div');
+    line.classList.add('line');
+    line.id = 'line' + linePlacement.toString();
+    page.append(line);
+  }
+  let layer = line.getElementsByClassName('layer' + currentInfo.layer.toString())[0];
+  if (typeof layer === 'undefined') {
+    layer = document.createElement('div');
+    layer.classList.add('layer');
+    layer.classList.add('layer' + currentInfo.layer.toString());
+    line.append(layer);
+  }
+  return layer;
 }
 
 function addStringToMain(text, currentInfo) {
@@ -455,21 +578,16 @@ function addStringToMain(text, currentInfo) {
       (currentInfo.line % linesOnPageWithMargin);
     let line = document.getElementById('line' + linePlacement.toString());
     if (line !== null) {
+      line = line.getElementsByClassName('layer' + currentInfo.layer.toString())[0];
+    }
+    if (line !== null && typeof line !== 'undefined') {
       addStringToLine(line, textToUse, currentInfo);
     } else {
       const pageCount = Math.floor(
         currentInfo.line / (parseInt(columns.value) * linesOnPageWithMargin)
       );
-      let page = document.getElementById('page' + pageCount.toString());
-      if (page === null) {
-        page = createPage(pageCount);
-        main.append(page);
-      } else {
-        const br = document.createElement('br');
-        page.append(br);
-      }
-      const line = createLine(linePlacement);
-      page.append(line);
+      let page = createPage(pageCount);
+      const line = createLine(page, linePlacement, currentInfo);
       addStringToLine(line, textToUse, currentInfo);
     }
     currentInfo.increment();
@@ -519,20 +637,20 @@ function addWordToString(text, word, currentInfo) {
   }
 }
 
-function generate() {
+function generateSingle(input, layer) {
   //remove past pages
-  const pages = document.getElementsByClassName('page');
+  /*const pages = document.getElementsByClassName('page');
   while (pages.length) {
     pages[0].remove();
-  }
+  }*/
 
-  let currentInfo = new CurrentInfo();
-  if (input.value === '') {
+  let currentInfo = new CurrentInfo(layer);
+  if (input === '') {
     //add blank page
-    main.append(createPage(1));
+    createPage(0);
   } else {
     let writeLine = '';
-    for (const line of input.value.split(/\r?\n|\r/)) {
+    for (const line of input.split(/\r?\n|\r/)) {
       if (line.length) {
         for (const word of line.split(' ')) {
           writeLine = addWordToString(
@@ -590,6 +708,18 @@ function generate() {
   const numPages = Math.ceil(currentInfo.line / linesOnPageWithMargin);
   document.getElementById('pageCount').innerText =
     numPages.toString() + ' page' + (numPages !== 1 ? 's' : '');
+}
+
+function generate() {
+  //remove past pages
+  const pages = document.getElementsByClassName('page');
+  while (pages.length) {
+    pages[0].remove();
+  }
+
+  for (let i = 0; i < inputs.length; i++) {
+    generateSingle(inputs[i].value, i);
+  }
 }
 
 generate();
