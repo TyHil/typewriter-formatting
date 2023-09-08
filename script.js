@@ -150,7 +150,6 @@ function layerButtons() {
   } else {
     [deleteLayer, prevLayer, nextLayer].forEach((button) => button.style.display = 'block');
     const selectedLayer = getSelectedLayer();
-    console.log(selectedLayer);
     deleteLayer.innerText = 'Delete Layer ' + (selectedLayer + 1).toString();
     if (selectedLayer === 0) {
       deleteLayer.disabled = true;
