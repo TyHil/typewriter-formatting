@@ -740,6 +740,10 @@ function generate() {
     pages[0].remove();
   }
 
+  //clear lines and pages
+  document.getElementById('lineCount').innerText = '';
+  document.getElementById('pageCount').innerText = '';
+
   if (singleLayer.checked) {
     const selectedLayer = getSelectedLayer();
     generateSingle(inputs[selectedLayer].value, selectedLayer);
