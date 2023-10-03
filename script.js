@@ -536,7 +536,9 @@ function addStringToLine(line, text, currentInfo) {
 
 function createPage(pageNum, currentInfo) {
   let page = document.getElementById('page' + pageNum.toString());
+  let newPage = false;
   if (page === null) {
+    newPage = true;
     page = document.createElement('div');
     page.classList.add('page');
     if (showSpaces.checked) {
@@ -545,14 +547,16 @@ function createPage(pageNum, currentInfo) {
     page.id = 'page' + pageNum.toString();
     main.append(page);
   }
-  return page;
+  return [page, newPage];
 }
 
-function createLine(page, linePlacement, currentInfo) {
+function createLine(page, newPage, linePlacement, currentInfo) {
   let line = document.getElementById('line' + linePlacement.toString());
   if (line === null) {
-    const br = document.createElement('br');
-    page.append(br);
+    if (!newPage) {
+      const br = document.createElement('br');
+      page.append(br);
+    }
     line = document.createElement('div');
     line.classList.add('line');
     line.id = 'line' + linePlacement.toString();
@@ -607,8 +611,8 @@ function addStringToMain(text, currentInfo) {
       const pageCount = Math.floor(
         currentInfo.line / (parseInt(columns.value) * linesOnPageWithMargin)
       );
-      let page = createPage(pageCount);
-      const line = createLine(page, linePlacement, currentInfo);
+      let [page, newPage] = createPage(pageCount);
+      const line = createLine(page, newPage, linePlacement, currentInfo);
       addStringToLine(line, textToUse, currentInfo);
     }
     currentInfo.increment();
