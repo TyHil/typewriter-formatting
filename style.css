@@ -388,6 +388,14 @@ main {
 .layer {
   position: absolute;
 }
+:root {
+  --dark0rgb: 2, 13, 11;
+}
+@media (prefers-color-scheme: light) {
+  :root {
+    --dark0rgb: 233, 244, 242;
+  }
+}
 .page {
   width: var(--width);
   height: var(--height);
