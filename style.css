@@ -1,3 +1,6 @@
+/* STYLE GUIDE */
+
+
 /* Header */
 
 #title {
@@ -257,6 +260,9 @@ input[type=file]::file-selector-button:hover, input[type=file]:focus-visible::fi
   background-color: var(--dark3);
 }
 
+
+
+/* STYLES */
 
 
 /* Body */
