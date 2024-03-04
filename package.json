@@ -1,0 +1,22 @@
+{
+  "name": "tyhil-personal-website-styles",
+  "version": "1.0.0",
+  "scripts": {
+    "format": "prettier . --write",
+    "format:check": "prettier . --check"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "prettier": "^3.2.5"
+  },
+  "prettier": {
+    "printWidth": 100,
+    "tabWidth": 2,
+    "useTabs": false,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "none",
+    "arrowParens": "avoid",
+    "htmlWhitespaceSensitivity": "strict"
+  }
+}
