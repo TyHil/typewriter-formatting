@@ -426,10 +426,10 @@ class CurrentInfo {
   constructor(layer) {
     this.line = 0;
     this.column = 0;
-    this.columnWidths = this.#findColumnWidths(charsOnLineWithMargin);
+    this.columnWidths = this.findColumnWidths(charsOnLineWithMargin);
     this.layer = layer;
   }
-  #findColumnWidths(characters) {
+  findColumnWidths(characters) {
     const spaceToFill = characters - columnGap.value * (columns.value - 1);
     const minWidth = Math.floor(spaceToFill / parseInt(columns.value));
     let columnWidths = Array(parseInt(columns.value)).fill(minWidth);
