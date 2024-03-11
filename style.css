@@ -295,6 +295,9 @@ textarea {
 textarea::-webkit-scrollbar-track {
   background-color: var(--dark2);
 }
+input[type='file'] {
+  width: 100%;
+}
 input[type='file']::file-selector-button {
   background-color: var(--dark2);
 }
@@ -352,7 +355,7 @@ aside {
   flex: 1 0;
   min-width: 25ch;
   background-color: var(--dark1);
-  border-radius: 0 0.5rem 0.5rem 0;
+  border-radius: 0 0.5rem 0 0;
   padding: 1rem;
   overflow: auto;
   font-family: Tahoma, sans-serif;
