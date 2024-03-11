@@ -33,339 +33,363 @@
     <!-- Link Tags -->
     <link rel="icon" href="typewriter-formatting/tabicon.png" />
     <link href="https://tylergordonhill.com/global.css" rel="stylesheet" type="text/css" />
-    <link href="typewriter-formatting/style.css" rel="stylesheet" type="text/css" />
+    <link href="/style.css" rel="stylesheet" type="text/css" />
   </head>
 
   <body>
-    <section>
-      <header>
-        <div id="headerBg"></div>
-        <h2 id="title">Typewriter Formatting</h2>
-        <a id="byLine" href="/">Tyler Gordon Hill</a>
-      </header>
-      <div id="resetContainer" class="sectionButtonBox">
-        <label for="input" title="Text input" class="sectionLabel">Text input</label>
-        <button class="small" id="resetInputEssay" title="Reset text input to essay example"
-          >Reset Essay</button
-        >
-        <button class="small" id="resetInputASCII" title="Reset text input to ASCII example"
-          >Reset ASCII</button
-        >
-        <button class="small" id="addLayer" title="Add layer for overlapping text"
-          >Add Layer</button
-        >
-        <button class="small hidden" id="deleteLayer">Delete Layer</button>
-        <button class="small hidden" id="prevLayer" title="Go to previous layer">Previous</button>
-        <button class="small hidden" id="nextLayer" title="Go to next layer">Next</button>
-      </div>
-      <form id="inputContainer">
-        <textarea id="input" class="input" name="input">
-
-
-                                            _____
-                                          _/ _   \__
-                                       __/  / \     \
-                                      @@@@ | @ |     |
-                          @@@@@@@@@@@@@@@@@ \_/      \
-                       @@@@@@@@@@@@@@@@@@@@@@         \
-                    @@@@@   /.''......'\@@@@@        __\
-                  @@@      /'.''.'..'''.'\@@@       /
-                 @       __|''..'___@@@_____.\_____/
-                       _/_/'.'._/@@@        \____3
-                      /  |'''_/                | 3
-                       _/''./                  /  \
-                      /'__'_/                 /    \
-                     /'/ //                  /      |
-                    /'/ //                  /       \
-         /        _/.\ / |                  |        \
-          /      |___//__\                  /         |
-                / / // / /   \             /          \
-          /      /                         |           \
-           /       /         \ \           /            \
-                    /                     /              \
-            /             |               |               \_
-           /   |                          /  /\             \__
-          /    |  |   |   |              /     |         \_    \_
-                          |              |     |           \__   \_
-             |                           |     | |            \    \_
-                                         |     | |             \_    \_
-                 /                       |     | |        \      \     \_
-              /                          |     | \         \      |      \
-                   |                     \     \  \         \     |       \
-                       |                  \     \  \     /   \    |        \
-           /    /                          \     \  \\\\\     \    \        \
-            /                               \     \   \\\      \    |       |
-                                             \     \_    \ |        |       \
-          |   |                               \      \_   \\       \\\       \
-                                               \_      \_  \\\\\\\\\\\\       \
-            |                                    \_      \__ \ \\\\\ \\\
-         |      |                                  \___     \_  \     |\_
-             /                                     /   |      \_ \_   \  \_
-           /                                       |   \        \_\\_  |   \_
-        /                                         /     \     __/    \_\     \_
-       |   || |                                  /__@@__|____/         \
-        |                                           @@   @@
-        |  | |                                      @@   @@
-                                                    @@   @@
-   ______||_|______                                 @@   @@
-                                                    @@   @@
-                                                    @@   @@
-                                                    @@   @@
-                                                    @@   @@
-                                                    @@   @@
-                                                    @@   @@
-                                              ______@@___@@______
-
-
-
-
-
-
-               D  o  n  '  t     E  v  e  r     G  i  v  e     U  p  !</textarea
-        >
-      </form>
-      <details open>
-        <summary>
-          <div class="sectionButtonBox">
-            <span class="sectionLabel">Options</span>
-            <button class="small" id="resetOptionsEssay" title="Reset options to essay defaults"
-              >Reset Essay</button
-            >
-            <button class="small" id="resetOptionsASCII" title="Reset options to ASCII defaults"
-              >Reset ASCII</button
-            >
-          </div>
-        </summary>
-        <form id="optionsContainer">
-          <fieldset>
-            <legend>Page</legend>
-            <div class="smallInputBox">
-              <label
-                for="charsOnLine"
-                title="Characters on a line on your typewriter, 65 with 1in margin, 0.1in characters, and 8.5in wide paper"
-                >Characters on a line</label
-              >
-              <input
-                type="number"
-                id="charsOnLine"
-                name="charsOnLine"
-                value="85"
-                min="1"
-                title="Characters on a line on your typewriter, 85 with 10 characters per inch and 8.5in wide paper"
-                class="small"
-              />
-            </div>
-            <div class="smallInputBox">
-              <label
-                for="linesOnPage"
-                title="Lines on a page, 54 with 1in margins and 11in tall paper"
-                >Lines on a page</label
-              >
-              <input
-                type="number"
-                id="linesOnPage"
-                name="linesOnPage"
-                value="66"
-                min="1"
-                title="Lines on a page, 66 with 6 lines per inch and 11in tall paper"
-                class="small"
-              />
-            </div>
-            <div class="smallInputBox">
-              <label
-                for="marginLines"
-                title="Top and bottom margin in lines, 6 with 1in margins and 11in tall paper"
-                >Top/bottom margin</label
-              >
-              <input
-                type="number"
-                id="marginLines"
-                name="marginLines"
-                value="0"
-                min="0"
-                title="Top and bottom margin in lines, 6 with 1in margins and 11in tall paper"
-                class="small"
-              />
-            </div>
-            <div class="smallInputBox">
-              <label
-                for="marginChars"
-                title="Side margin in characters, 10 with 1in margins and 8.5in wide paper"
-                >Side margin</label
-              >
-              <input
-                type="number"
-                id="marginChars"
-                name="marginChars"
-                value="0"
-                min="0"
-                title="Side margin in characters, 10 with 1in margins and 8.5in wide paper"
-                class="small"
-              />
-            </div>
-          </fieldset>
-          <fieldset>
-            <legend>
-              <label for="columns" title="Split into columns">Columns</label>
-              <input
-                type="number"
-                class="small smallWidth"
-                id="columns"
-                name="columns"
-                value="1"
-                min="1"
-                title="Split into columns"
-              />
-            </legend>
-            <div class="smallInputBox">
-              <label for="columnGap" class="disabled" title="Characters between columns"
-                >Column Gap</label
-              >
-              <input
-                type="number"
-                class="small disabled smallWidth"
-                id="columnGap"
-                name="columnGap"
-                value="0"
-                min="0"
-                title="Characters between columns"
-              />
-            </div>
-          </fieldset>
-          <fieldset>
-            <legend>
-              <input
-                type="checkbox"
-                id="wordBreak"
-                name="wordBreak"
-                title="Break words when split over a line"
-                class="small"
-              />
-              <label for="wordBreak" title="Break words when split over a line">Word Break</label>
-            </legend>
-            <div class="smallInputBox">
-              <label
-                for="charsToHyphen"
-                class="disabled"
-                title="Min number of characters that must be on each line for a word to split"
-                >Characters to break</label
-              >
-              <input
-                type="number"
-                class="small disabled smallWidth"
-                id="charsToHyphen"
-                name="charsToHyphen"
-                value="3"
-                min="1"
-                title="Min number of characters that must be on each line for a word to split"
-              />
-            </div>
-            <div class="option checkbox">
-              <input
-                class="disabled"
-                type="checkbox"
-                id="addHyphen"
-                name="addHyphen"
-                title="Add hyphen"
-                checked
-              />
-              <label for="addHyphen" class="disabled" title="Add hyphen">Add hyphen</label>
-            </div>
-          </fieldset>
-          <fieldset>
-            <legend
-              ><label for="file" title="Background image for the page, to draw ascii art over"
-                >Background Image</label
-              ></legend
-            >
-            <input
-              type="file"
-              id="file"
-              name="file"
-              value=""
-              title="Background image for the page, to draw ascii art over"
-            />
-            <div class="smallInputBox">
-              <label for="transparency" class="disabled" title="Transparency of background image"
-                >Transparency</label
-              >
-              <input
-                type="number"
-                class="small smallWidth disabled"
-                id="transparency"
-                name="transparency"
-                value="0"
-                min="0"
-                max="100"
-                title="Transparency of background image"
-              />
-            </div>
-          </fieldset>
-          <fieldset>
-            <legend>Other</legend>
-            <div class="option checkbox">
-              <input type="checkbox" id="center" name="center" title="Center each line" />
-              <label for="center" title="Center each line">Center Text</label>
-            </div>
-            <div class="smallInputBox">
-              <label for="lineSpacing" title="Space between lines">Line Spacing</label>
-              <input
-                type="number"
-                class="small smallWidth"
-                id="lineSpacing"
-                name="lineSpacing"
-                value="1"
-                min="1"
-                title="Space between lines"
-              />
-            </div>
-            <div class="option checkbox">
-              <input
-                type="checkbox"
-                id="showSpaces"
-                name="showSpaces"
-                title="Show spaces on hover"
-                checked
-              />
-              <label for="showSpaces" title="Show spaces on hover">Show spaces on hover</label>
-            </div>
-            <div class="option checkbox">
-              <input
-                type="checkbox"
-                id="renderChar"
-                name="renderChar"
-                title="Render the page with each character entered"
-              />
-              <label for="renderChar" title="Render the page with each character entered"
-                >Render on character input</label
-              >
-            </div>
-            <div class="option checkbox">
-              <input
-                type="checkbox"
-                id="singleLayer"
-                name="singleLayer"
-                title="Show only the selected layer on screen"
-              />
-              <label for="singleLayer" title="Show only the selected layer on screen"
-                >Show single layer</label
-              >
-            </div>
-          </fieldset>
-        </form>
-      </details>
-    </section>
     <main>
-      <div id="info">
-        <span id="lineCount"></span>
-        <span id="pageCount"></span>
-      </div>
-      <div class="page" id="page1"></div>
+      <aside>
+        <header>
+          <div id="headerBg"></div>
+          <h2 id="title">Typewriter Formatting</h2>
+          <a id="byLine" href="/">Tyler Gordon Hill</a>
+        </header>
+        <div id="resetContainer" class="settingsButtonBox">
+          <label for="input" title="Text input" class="settingsLabel">Text input</label>
+          <button class="small" id="resetInputEssay" title="Reset text input to essay example"
+            >Reset Essay</button
+          >
+          <button class="small" id="resetInputASCII" title="Reset text input to ASCII example"
+            >Reset ASCII</button
+          >
+          <button class="small" id="addLayer" title="Add layer for overlapping text"
+            >Add Layer</button
+          >
+          <button class="small hidden" id="deleteLayer">Delete Layer</button>
+          <button class="small hidden" id="prevLayer" title="Go to previous layer">Previous</button>
+          <button class="small hidden" id="nextLayer" title="Go to next layer">Next</button>
+        </div>
+        <form id="inputContainer">
+          <textarea id="input" class="input" name="input">
+  
+  
+                                              _____
+                                            _/ _   \__
+                                         __/  / \     \
+                                        @@@@ | @ |     |
+                            @@@@@@@@@@@@@@@@@ \_/      \
+                         @@@@@@@@@@@@@@@@@@@@@@         \
+                      @@@@@   /.''......'\@@@@@        __\
+                    @@@      /'.''.'..'''.'\@@@       /
+                   @       __|''..'___@@@_____.\_____/
+                         _/_/'.'._/@@@        \____3
+                        /  |'''_/                | 3
+                         _/''./                  /  \
+                        /'__'_/                 /    \
+                       /'/ //                  /      |
+                      /'/ //                  /       \
+           /        _/.\ / |                  |        \
+            /      |___//__\                  /         |
+                  / / // / /   \             /          \
+            /      /                         |           \
+             /       /         \ \           /            \
+                      /                     /              \
+              /             |               |               \_
+             /   |                          /  /\             \__
+            /    |  |   |   |              /     |         \_    \_
+                            |              |     |           \__   \_
+               |                           |     | |            \    \_
+                                           |     | |             \_    \_
+                   /                       |     | |        \      \     \_
+                /                          |     | \         \      |      \
+                     |                     \     \  \         \     |       \
+                         |                  \     \  \     /   \    |        \
+             /    /                          \     \  \\\\\     \    \        \
+              /                               \     \   \\\      \    |       |
+                                               \     \_    \ |        |       \
+            |   |                               \      \_   \\       \\\       \
+                                                 \_      \_  \\\\\\\\\\\\       \
+              |                                    \_      \__ \ \\\\\ \\\
+           |      |                                  \___     \_  \     |\_
+               /                                     /   |      \_ \_   \  \_
+             /                                       |   \        \_\\_  |   \_
+          /                                         /     \     __/    \_\     \_
+         |   || |                                  /__@@__|____/         \
+          |                                           @@   @@
+          |  | |                                      @@   @@
+                                                      @@   @@
+     ______||_|______                                 @@   @@
+                                                      @@   @@
+                                                      @@   @@
+                                                      @@   @@
+                                                      @@   @@
+                                                      @@   @@
+                                                      @@   @@
+                                                ______@@___@@______
+  
+  
+  
+  
+  
+  
+                 D  o  n  '  t     E  v  e  r     G  i  v  e     U  p  !</textarea
+          >
+        </form>
+        <details open>
+          <summary>
+            <div class="settingsButtonBox">
+              <span class="settingsLabel">Options</span>
+              <button class="small" id="resetOptionsEssay" title="Reset options to essay defaults"
+                >Reset Essay</button
+              >
+              <button class="small" id="resetOptionsASCII" title="Reset options to ASCII defaults"
+                >Reset ASCII</button
+              >
+            </div>
+          </summary>
+          <form id="optionsContainer">
+            <fieldset>
+              <legend>Page</legend>
+              <div class="smallInputBox">
+                <label
+                  for="charsOnLine"
+                  title="Characters on a line on your typewriter, 65 with 1in margin, 0.1in characters, and 8.5in wide paper"
+                  >Characters on a line</label
+                >
+                <input
+                  type="number"
+                  id="charsOnLine"
+                  name="charsOnLine"
+                  value="85"
+                  min="1"
+                  title="Characters on a line on your typewriter, 85 with 10 characters per inch and 8.5in wide paper"
+                  class="small"
+                />
+              </div>
+              <div class="smallInputBox">
+                <label
+                  for="linesOnPage"
+                  title="Lines on a page, 54 with 1in margins and 11in tall paper"
+                  >Lines on a page</label
+                >
+                <input
+                  type="number"
+                  id="linesOnPage"
+                  name="linesOnPage"
+                  value="66"
+                  min="1"
+                  title="Lines on a page, 66 with 6 lines per inch and 11in tall paper"
+                  class="small"
+                />
+              </div>
+              <div class="smallInputBox">
+                <label
+                  for="marginLines"
+                  title="Top and bottom margin in lines, 6 with 1in margins and 11in tall paper"
+                  >Top/bottom margin</label
+                >
+                <input
+                  type="number"
+                  id="marginLines"
+                  name="marginLines"
+                  value="0"
+                  min="0"
+                  title="Top and bottom margin in lines, 6 with 1in margins and 11in tall paper"
+                  class="small"
+                />
+              </div>
+              <div class="smallInputBox">
+                <label
+                  for="marginChars"
+                  title="Side margin in characters, 10 with 1in margins and 8.5in wide paper"
+                  >Side margin</label
+                >
+                <input
+                  type="number"
+                  id="marginChars"
+                  name="marginChars"
+                  value="0"
+                  min="0"
+                  title="Side margin in characters, 10 with 1in margins and 8.5in wide paper"
+                  class="small"
+                />
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>
+                <label for="columns" title="Split into columns">Columns</label>
+                <input
+                  type="number"
+                  class="small smallWidth"
+                  id="columns"
+                  name="columns"
+                  value="1"
+                  min="1"
+                  title="Split into columns"
+                />
+              </legend>
+              <div class="smallInputBox">
+                <label for="columnGap" class="disabled" title="Characters between columns"
+                  >Column Gap</label
+                >
+                <input
+                  type="number"
+                  class="small disabled smallWidth"
+                  id="columnGap"
+                  name="columnGap"
+                  value="0"
+                  min="0"
+                  title="Characters between columns"
+                />
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>
+                <input
+                  type="checkbox"
+                  id="wordBreak"
+                  name="wordBreak"
+                  title="Break words when split over a line"
+                  class="small"
+                />
+                <label for="wordBreak" title="Break words when split over a line">Word Break</label>
+              </legend>
+              <div class="smallInputBox">
+                <label
+                  for="charsToHyphen"
+                  class="disabled"
+                  title="Min number of characters that must be on each line for a word to split"
+                  >Characters to break</label
+                >
+                <input
+                  type="number"
+                  class="small disabled smallWidth"
+                  id="charsToHyphen"
+                  name="charsToHyphen"
+                  value="3"
+                  min="1"
+                  title="Min number of characters that must be on each line for a word to split"
+                />
+              </div>
+              <div class="option checkbox">
+                <input
+                  class="disabled"
+                  type="checkbox"
+                  id="addHyphen"
+                  name="addHyphen"
+                  title="Add hyphen"
+                  checked
+                />
+                <label for="addHyphen" class="disabled" title="Add hyphen">Add hyphen</label>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend
+                ><label for="file" title="Background image for the page, to draw ascii art over"
+                  >Background Image</label
+                ></legend
+              >
+              <input
+                type="file"
+                id="file"
+                name="file"
+                value=""
+                title="Background image for the page, to draw ascii art over"
+              />
+              <div class="smallInputBox">
+                <label for="transparency" class="disabled" title="Transparency of background image"
+                  >Transparency</label
+                >
+                <input
+                  type="number"
+                  class="small smallWidth disabled"
+                  id="transparency"
+                  name="transparency"
+                  value="0"
+                  min="0"
+                  max="100"
+                  title="Transparency of background image"
+                />
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>Other</legend>
+              <div class="option checkbox">
+                <input type="checkbox" id="center" name="center" title="Center each line" />
+                <label for="center" title="Center each line">Center Text</label>
+              </div>
+              <div class="smallInputBox">
+                <label for="lineSpacing" title="Space between lines">Line Spacing</label>
+                <input
+                  type="number"
+                  class="small smallWidth"
+                  id="lineSpacing"
+                  name="lineSpacing"
+                  value="1"
+                  min="1"
+                  title="Space between lines"
+                />
+              </div>
+              <div class="option checkbox">
+                <input
+                  type="checkbox"
+                  id="showSpaces"
+                  name="showSpaces"
+                  title="Show spaces on hover"
+                  checked
+                />
+                <label for="showSpaces" title="Show spaces on hover">Show spaces on hover</label>
+              </div>
+              <div class="option checkbox">
+                <input
+                  type="checkbox"
+                  id="renderChar"
+                  name="renderChar"
+                  title="Render the page with each character entered"
+                />
+                <label for="renderChar" title="Render the page with each character entered"
+                  >Render on character input</label
+                >
+              </div>
+              <div class="option checkbox">
+                <input
+                  type="checkbox"
+                  id="singleLayer"
+                  name="singleLayer"
+                  title="Show only the selected layer on screen"
+                />
+                <label for="singleLayer" title="Show only the selected layer on screen"
+                  >Show single layer</label
+                >
+              </div>
+            </fieldset>
+          </form>
+        </details>
+      </aside>
+      <section>
+        <div id="info">
+          <span id="lineCount"></span>
+          <span id="pageCount"></span>
+        </div>
+        <div class="page" id="page1"></div>
+      </section>
     </main>
+
+    <footer>
+      <div>
+        <p><strong>Contact and Social</strong></p>
+        <a href="mailto:tylergordonhill@gmail.com" target="_blank" rel="noopener">Email</a>
+        <a href="http://www.linkedin.com/in/tylergordonhill" target="_blank" rel="noopener"
+          >LinkedIn</a
+        >
+        <a href="https://github.com/TyHil" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://replit.com/@TylerGHill" target="_blank" rel="noopener">Replit</a>
+        <a href="https://thangs.com/TylerHill" target="_blank" rel="noopener">Thangs</a>
+      </div>
+      <div>
+        <p><strong>Subsites</strong></p>
+        <a href="/set-operations-for-spotify">Set Operations for Spotify</a>
+        <a href="/typewriter-formatting">Typewriter Formatting</a>
+        <a href="/cah-maker">Cards Against Humanity Card Maker</a>
+        <a href="/response-display">Response Display</a>
+        <a href="/password-generator">Password Generator</a>
+        <a href="/recipes">Recipes</a>
+      </div>
+    </footer>
 
     <script src="https://www.gstatic.com/firebasejs/10.1.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.1.0/firebase-analytics-compat.js"></script>
     <script src="https://tylergordonhill.com/global.js"></script>
-    <script src="typewriter-formatting/script.js"></script>
+    <script src="/script.js"></script>
   </body>
 </html>

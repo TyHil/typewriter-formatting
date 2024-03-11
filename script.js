@@ -6,7 +6,7 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matc
 
 /* Constants */
 
-const main = document.getElementsByTagName('main')[0];
+const display = document.getElementsByTagName('section')[0];
 
 const resetInputEssay = document.getElementById('resetInputEssay');
 const resetInputASCII = document.getElementById('resetInputASCII');
@@ -501,7 +501,7 @@ function createPage(pageNum, currentInfo) {
       page.classList.add('showSpaces');
     }
     page.id = 'page' + pageNum.toString();
-    main.append(page);
+    display.append(page);
   }
   return [page, newPage];
 }
@@ -528,7 +528,7 @@ function createLine(page, newPage, linePlacement, currentInfo) {
   return layer;
 }
 
-function addStringToMain(text, currentInfo) {
+function addStringToDisplay(text, currentInfo) {
   const charsLeft = currentInfo.columnWidth - text.slice(0, -1).length;
   if (center.checked) {
     const leftSpaces = Math.ceil(charsLeft / 2); //spaces on left
@@ -580,14 +580,14 @@ function addWordToString(text, word, currentInfo) {
       word.length - charsLeft >= charsToHyphen.value
     ) {
       //check enough chars on each line
-      addStringToMain(
+      addStringToDisplay(
         text + word.slice(0, charsLeft) + (addHyphen.checked ? '- ' : ' '),
         currentInfo
       ); //add split and hyphen if necessary
       return addWordToString('', word.slice(charsLeft), currentInfo); //add other half of word to a new line
     } else if (word.length > currentInfo.columnWidth) {
       //force word break
-      addStringToMain(text, currentInfo);
+      addStringToDisplay(text, currentInfo);
       charsLeft = currentInfo.columnWidth;
       if (addHyphen.checked) {
         //space for hyphen
@@ -599,7 +599,7 @@ function addWordToString(text, word, currentInfo) {
         currentInfo
       );
     } else {
-      addStringToMain(text, currentInfo);
+      addStringToDisplay(text, currentInfo);
       return addWordToString('', word, currentInfo);
     }
   } else {
@@ -621,12 +621,12 @@ function generateSingle(input, layer) {
           writeLine = addWordToString(writeLine, word.replace(/\r?\n|\r/g, ''), currentInfo);
           if (/\r|\n/.exec(word)) {
             //end line
-            addStringToMain(writeLine, currentInfo);
+            addStringToDisplay(writeLine, currentInfo);
             writeLine = '';
           }
         }
       }
-      addStringToMain(writeLine, currentInfo);
+      addStringToDisplay(writeLine, currentInfo);
       writeLine = '';
     }
 
