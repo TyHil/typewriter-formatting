@@ -7,11 +7,8 @@ header > * {
   position: relative;
 }
 header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.2rem;
   margin-bottom: 1.5rem;
+  padding: 0;
 }
 #title {
   text-align: center;
