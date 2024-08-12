@@ -686,7 +686,7 @@ function generate() {
     const selectedLayer = getSelectedLayer();
     generateSingle(inputs[selectedLayer].value, selectedLayer);
   } else {
-    for (let i = 0; i < inputs.length; i++) {
+    for (let i = inputs.length - 1; i >= 0; i--) {
       generateSingle(inputs[i].value, i);
     }
   }
