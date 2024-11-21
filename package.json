@@ -20,7 +20,8 @@
     "singleQuote": true,
     "trailingComma": "none",
     "arrowParens": "avoid",
-    "htmlWhitespaceSensitivity": "strict"
+    "htmlWhitespaceSensitivity": "strict",
+    "proseWrap": "always"
   },
   "eslintConfig": {
     "env": {
