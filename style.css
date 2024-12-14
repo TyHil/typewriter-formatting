@@ -213,10 +213,12 @@ section {
 }
 :root {
   --dark0rgb: 2, 13, 11;
+  --themegreen: #128a74;
 }
 @media (prefers-color-scheme: light) {
   :root {
     --dark0rgb: 233, 244, 242;
+    --themegreen: #128a74;
   }
 }
 .page {
@@ -250,7 +252,7 @@ section {
 }
 .page.showSpaces:hover > .line > .layer > .spaceBlock {
   background-color: var(--dark1);
-  color: var(--light0);
+  color: var(--themegreen);
 }
 
 /* Flex */
