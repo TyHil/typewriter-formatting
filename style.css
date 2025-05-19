@@ -228,7 +228,8 @@ section {
   border-radius: 0.25rem;
   margin: auto;
   transform: scale(1, var(--scale));
-  background: linear-gradient(
+  background:
+    linear-gradient(
       0deg,
       rgba(var(--dark0rgb), var(--transparency)),
       rgba(var(--dark0rgb), var(--transparency))
