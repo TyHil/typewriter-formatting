@@ -6,8 +6,6 @@ on:
     paths-ignore:
       - '**/README.md'
       - '**/LICENSE.txt'
-      - '**/.replit'
-      - '**/replit.nix'
 jobs:
   update:
     runs-on: ubuntu-latest
