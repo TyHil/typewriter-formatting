@@ -26,19 +26,19 @@ header {
 
 /* Inputs Extra */
 
-button,
-a.button {
+main button,
+main a.button {
   background-color: var(--dark2);
 }
-button.disabled,
-a.button.disabled,
-button:disabled {
+main button.disabled,
+main a.button.disabled,
+main button:disabled {
   background-color: var(--dark3);
 }
-button:hover,
-button:focus-visible,
-a.button:hover,
-a.button:focus-visible {
+main button:hover,
+main button:focus-visible,
+main a.button:hover,
+main a.button:focus-visible {
   background-color: var(--dark3);
 }
 input[type='text'],
@@ -211,13 +211,17 @@ section {
 .layer {
   position: absolute;
 }
-:root {
+:root,
+:root.always-dark {
   --dark0rgb: 2, 13, 11;
 }
 @media (prefers-color-scheme: light) {
   :root {
     --dark0rgb: 233, 244, 242;
   }
+}
+:root.always-light {
+  --dark0rgb: 233, 244, 242;
 }
 .page {
   width: var(--width);
