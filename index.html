@@ -48,22 +48,30 @@
         <header>
           <div id="headerBg"></div>
           <h2 id="title">Typewriter Formatting</h2>
-          <a id="byLine" href="/">Tyler Gordon Hill</a>
+          <a id="byLine" class="button large ripple" href="/">Tyler Gordon Hill</a>
         </header>
         <div id="resetContainer" class="settingsButtonBox">
           <label for="input" title="Text input" class="settingsLabel">Text input</label>
-          <button class="small" id="resetInputEssay" title="Reset text input to essay example"
+          <button
+            class="small ripple"
+            id="resetInputEssay"
+            title="Reset text input to essay example"
             >Reset Essay</button
           >
-          <button class="small" id="resetInputASCII" title="Reset text input to ASCII example"
+          <button
+            class="small ripple"
+            id="resetInputASCII"
+            title="Reset text input to ASCII example"
             >Reset ASCII</button
           >
-          <button class="small" id="addLayer" title="Add layer for overlapping text"
+          <button class="small ripple" id="addLayer" title="Add layer for overlapping text"
             >Add Layer</button
           >
-          <button class="small hidden" id="deleteLayer">Delete Layer</button>
-          <button class="small hidden" id="prevLayer" title="Go to previous layer">Previous</button>
-          <button class="small hidden" id="nextLayer" title="Go to next layer">Next</button>
+          <button class="small ripple hidden" id="deleteLayer">Delete Layer</button>
+          <button class="small ripple hidden" id="prevLayer" title="Go to previous layer"
+            >Previous</button
+          >
+          <button class="small ripple hidden" id="nextLayer" title="Go to next layer">Next</button>
         </div>
         <form id="inputContainer">
           <textarea id="input" class="input" name="input">
@@ -135,10 +143,16 @@
           <summary>
             <div class="settingsButtonBox">
               <span class="settingsLabel">Options</span>
-              <button class="small" id="resetOptionsEssay" title="Reset options to essay defaults"
+              <button
+                class="small ripple"
+                id="resetOptionsEssay"
+                title="Reset options to essay defaults"
                 >Reset Essay</button
               >
-              <button class="small" id="resetOptionsASCII" title="Reset options to ASCII defaults"
+              <button
+                class="small ripple"
+                id="resetOptionsASCII"
+                title="Reset options to ASCII defaults"
                 >Reset ASCII</button
               >
             </div>
@@ -396,7 +410,7 @@
         <a href="/legal/privacy-policy">Privacy Policy</a>
         <a href="/sitemap.xml">Sitemap</a>
       </div>
-      <button id="footer-theme" class="large circle">
+      <button id="footer-theme" class="large circle ripple">
         <img class="svg" src="/style-guide/footer/theme.svg" alt="Theme icon" />
       </button>
     </footer>
@@ -428,6 +442,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.1.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.1.0/firebase-analytics-compat.js"></script>
     <script src="/style-guide/script.js"></script>
+    <script src="/style-guide/inputs/script.js"></script>
     <script src="/style-guide/modal/script.js"></script>
     <script src="/style-guide/footer/script.js"></script>
     <script src="/typewriter-formatting/script.js"></script>
